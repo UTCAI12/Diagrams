@@ -1,0 +1,40 @@
+@startuml Download Music (client side)
+actor User
+participant "IHM Music" as IHM
+participant Data
+participant Communication
+actor Server
+
+User ->> IHM : Click on "Download"
+activate IHM
+
+IHM -> Data : addToLibrary(Music)
+activate Data
+
+Data -> Communication : downloadMusic(Music)
+activate Communication
+Communication ->> Server : downloadMusic(Music)
+activate Server
+Communication --> Data
+deactivate Communication
+
+Data --> IHM
+deactivate Data
+deactivate IHM
+
+Server ->> Communication : saveFileAndLinkToMusic(Music, File)
+deactivate Server
+activate Communication
+Communication -> Data : saveFileAndLinkToMusic(Music, File)
+activate Data
+
+Data -> IHM : updateDisplay()
+activate IHM
+IHM --> Data
+deactivate IHM
+
+Data --> Communication
+deactivate Data
+deactivate Communication
+
+@enduml

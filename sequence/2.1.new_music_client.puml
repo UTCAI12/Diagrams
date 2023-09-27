@@ -1,0 +1,18 @@
+@startuml New Local Music
+actor User
+participant "IHM Music" as IHM
+participant Data
+participant Communication
+actor Server
+
+User ->> IHM : Enregistrer une nouvelle fiche musique
+activate IHM
+
+IHM -> Data : save(Music, File)
+activate Data
+
+Data --> IHM
+deactivate Data
+deactivate IHM
+
+@enduml

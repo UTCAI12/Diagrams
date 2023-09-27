@@ -23,8 +23,7 @@
 -   ~~1.8 User check all online profiles (client side and server side)~~ (consequence of 1.2, all profiles are downloaded at login and after)
 
 ## 2. Local music management
-
--   2.1 User add a music to his local library from a local file (client side and server side)
+-   2.1 User add a music to his local library from a local file (client side)
 -   2.2 User add a music to his local library from a distant file (client side and server side)
 -   2.3 User edit the music file information (client side and server side)
 -   2.4 User edit the visibility of music for the network (client side and server side)
