@@ -1,0 +1,18 @@
+@startuml Edit Music (server side)
+actor "User who updated" as User1
+participant Communication
+participant Data
+actor "Users to notify" as User2
+
+User1 ->> Communication : updateMusic(Music)
+activate Communication
+Communication -> Data : updateMusic(Music)
+activate Data
+Data --> Communication
+deactivate Data
+
+Communication ->> User2 : notifyAllMusicUpdated(Music)
+deactivate Communication
+activate User2
+
+@enduml

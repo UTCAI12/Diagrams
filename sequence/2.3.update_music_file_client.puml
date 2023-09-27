@@ -1,0 +1,38 @@
+@startuml Edit Music (client side)
+actor User
+participant "IHM Music" as IHM
+participant Data
+participant Communication
+actor Server
+
+User ->> IHM : Enregistrer une fiche musique
+activate IHM
+
+IHM -> Data : save(Music, File)
+activate Data
+
+opt Music is public
+    Data -> Communication : updateMusic(Music)
+    activate Communication
+    Communication ->> Server : updateMusic(Music)
+    activate Server
+    Communication --> Data
+    deactivate Communication
+end
+
+Data --> IHM
+deactivate Data
+deactivate IHM
+
+
+note across: The sequence below concerns any other users
+Server ->> Communication : updateMusic(Music)
+deactivate Server
+activate Communication
+Communication -> Data : updateMusic(Music)
+activate Data
+Data --> Communication
+deactivate Data
+deactivate Communication
+
+@enduml
