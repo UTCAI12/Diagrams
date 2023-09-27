@@ -8,7 +8,7 @@ User1 ->> Communication : updateMusic(Music)
 activate Communication
 Communication -> Data : updateMusic(Music)
 activate Data
-Data --> Communication
+Data --> Communication : void
 deactivate Data
 
 Communication ->> User2 : notifyAllMusicUpdated(Music)

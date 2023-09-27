@@ -11,7 +11,7 @@ activate IHM
 IHM -> Data : save(Music, File)
 activate Data
 
-Data --> IHM
+Data --> IHM : void | Exception
 deactivate Data
 deactivate IHM
 

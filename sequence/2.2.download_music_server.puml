@@ -10,14 +10,14 @@ activate Communication
 Communication -> Data : getOwner(Music)
 activate Data
 
-Data --> Communication : User
+Data --> Communication : User | Exception
 deactivate Data
 
 Communication ->> User2 : requestMusicFile(User, Music)
 deactivate Communication
 activate User2
 
-User2 -->> Communication : File
+User2 -->> Communication : File | Exception
 deactivate User2
 activate Communication
 

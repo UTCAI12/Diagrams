@@ -15,10 +15,10 @@ Data -> Communication : downloadMusic(Music)
 activate Communication
 Communication ->> Server : downloadMusic(Music)
 activate Server
-Communication --> Data
+Communication --> Data : void | Exception
 deactivate Communication
 
-Data --> IHM
+Data --> IHM : void | Exception
 deactivate Data
 deactivate IHM
 
@@ -30,10 +30,10 @@ activate Data
 
 Data -> IHM : updateDisplay()
 activate IHM
-IHM --> Data
+IHM --> Data : void
 deactivate IHM
 
-Data --> Communication
+Data --> Communication : void | Exception
 deactivate Data
 deactivate Communication
 

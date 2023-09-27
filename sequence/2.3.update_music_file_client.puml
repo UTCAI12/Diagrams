@@ -16,11 +16,11 @@ opt Music is public
     activate Communication
     Communication ->> Server : updateMusic(Music)
     activate Server
-    Communication --> Data
+    Communication --> Data : void | Exceptions
     deactivate Communication
 end
 
-Data --> IHM
+Data --> IHM : void
 deactivate Data
 deactivate IHM
 
@@ -31,7 +31,7 @@ deactivate Server
 activate Communication
 Communication -> Data : updateMusic(Music)
 activate Data
-Data --> Communication
+Data --> Communication : void
 deactivate Data
 deactivate Communication
 
