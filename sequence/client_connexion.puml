@@ -1,0 +1,48 @@
+@startuml Client Connect
+actor NewClient
+participant IHM
+participant Data
+participant Communication
+actor Server 
+
+opt Create new profile 
+    alt Profile file exists
+        NewClient -> IHM++: Click on "Import profile"
+        IHM -> Data++: importProfile(file: strPath)
+        return status: bool
+        return 
+    else Profile file doesn't exist
+        NewClient -> IHM++: Click on "Create profile"
+        IHM -> Data++: createProfile(newClient: Client)
+        return status: bool
+        return
+    end
+end
+
+
+
+NewClient -> IHM++: Click on "Login"
+IHM -> Data++: checkCredentials(user: str, pw: str): bool
+opt Credentials are correct
+    Data-> Communication++: newClient(newClient: Client, musics: list<Music>)
+    Communication->>Server++: newClient(newClient: Client, musics: list<Music>)
+    Data <-- Communication: status: bool
+    deactivate Communication
+end
+
+IHM <-- Data: status: bool
+deactivate Data
+NewClient <-- IHM: 
+deactivate IHM
+
+opt Credentials are correct
+    Server ->> Communication++: updateData(list<Client>, list<Music> )
+    deactivate Server
+    Communication->Data++: updateData(list<Client>,list<Music>)
+    Data->IHM++: updateData(list<Client>, list<Music>)
+    return 
+    return 
+    deactivate Communication
+end
+
+@enduml
