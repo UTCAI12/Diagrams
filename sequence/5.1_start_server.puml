@@ -1,0 +1,16 @@
+@startuml 5.1. Server is started (server side)
+
+actor Admin as admin
+participant IHMServer as ihm
+participant Communication as com
+
+admin ->> ihm : Start server
+note left : Aucun module IHMServer n'est défini. Cependant, \nil serait étrange que "Administrateur" envoie \ndirectement un message à "Communication, d'où une IHM.
+activate ihm
+
+ihm -> com++ : startServer(port : int)
+return void | ServerOpenException
+
+deactivate ihm
+
+@enduml

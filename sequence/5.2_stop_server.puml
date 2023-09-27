@@ -1,0 +1,25 @@
+@startuml Server is stopped (server side)
+
+actor Admin as admin
+participant IHMServer as ihm
+participant Communication as com
+participant Data as data
+actor ConnectedClient as client
+
+admin ->> ihm : Stop server
+note left : Aucun module IHMServer n'est défini. Cependant, \nil serait étrange que "Administrateur" envoie \ndirectement un message à "Communication, d'où une IHM.
+activate ihm
+
+ihm -> com++ : stopServer()
+com -> data++ : getUsers()
+return List<Users>
+
+loop user of users
+    com -> client : serverClose()
+end
+
+return void
+
+deactivate ihm
+
+@enduml
