@@ -2,8 +2,10 @@
 
 actor Server as server
 
-participant Communication as com
-participant Data as data
+box "Client App" #LightBlue
+    participant Communication as com
+    participant Data as data
+end box
 
 server ->> com : addRating(musicId : UUID, rating : Rating)
 

@@ -2,9 +2,11 @@
 
 actor Client as client
 
-participant IHMMusic as ihm
-participant Data as data
-participant Communication as com
+box "Client App" #LightBlue
+    participant IHMMusic as ihm
+    participant Data as data
+    participant Communication as com
+end box
 
 actor Server as server
 

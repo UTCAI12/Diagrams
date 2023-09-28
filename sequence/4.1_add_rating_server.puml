@@ -2,8 +2,10 @@
 
 actor Client as client
 
-participant Communication as com
-participant Data as data
+box "Server App" #LightBlue
+    participant Communication as com
+    participant Data as data
+end box
 
 actor TrackOwner as owner
 
