@@ -7,7 +7,7 @@ participant Data
 Client ->> IHMMusic : Click on pause Music
 activate IHMMusic
 
-IHMMusic -> Data : pause_music()
+IHMMusic -> Data : pauseMusic()
 activate Data
 return void | Exception
 deactivate Data
