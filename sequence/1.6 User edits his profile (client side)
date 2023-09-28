@@ -1,0 +1,25 @@
+@startuml 1.6 User edits his profile (client side and server side)
+actor Client
+participant IHMMain
+participant Data
+participant Communication
+actor Server 
+
+Client ->> IHMMain++: Modifie le profil
+
+
+
+ 
+IHMMain -> Data++: updateProfil(client: Client)
+Data --> IHMMain: void | Exception
+deactivate IHMMain
+Data -> Communication++: updateProfil(client: Client)
+Communication ->> Server++: updateProfil(client: Client)
+Communication --> Data: void | Exception
+deactivate Data
+Server ->> Communication: void | Exception
+deactivate Server
+deactivate Communication
+    
+
+@enduml
