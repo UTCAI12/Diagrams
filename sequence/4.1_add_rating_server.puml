@@ -13,8 +13,9 @@ client ->> com : addRating(musicId : UUID, rating : Rating)
 
 activate com
 
-com -> data++ : getMusic(musicId : UUID) : Music
-return Music
+com -> data++ : getMusic(musicId : UUID)
+note right : Les notes ne sont pas stockées.
+return music : Music
 
 alt music exists
     com ->> owner : addRating(musicId : UUID, rating : Rating)

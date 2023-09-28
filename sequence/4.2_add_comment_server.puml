@@ -13,8 +13,9 @@ client ->> com : addComment(musicId : UUID, comment : Comment)
 
 activate com
 
-com -> data++ : getMusic(musicId : UUID) : Music
-return Music
+com -> data++ : getMusic(musicId : UUID)
+note right : Les commentaires ne sont pas stockés.
+return music : Music
 
 alt music exists
     com ->> owner : addComment(musicId : UUID, comment : Comment)
