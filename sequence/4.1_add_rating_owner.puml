@@ -7,16 +7,16 @@ box "Client App" #LightBlue
     participant Data as data
 end box
 
-server ->> com : addRating(musicId : UUID, rating : Rating)
+server ->> com : addRating(trackId : UUID, rating : Rating)
 
 activate com
-com -> data++ : addRating(musicId : UUID, rating : Rating)
+com -> data++ : addRating(trackId : UUID, rating : Rating)
 
-data -> data++ : getMusic(musicId : UUID) 
-return Music
+data -> data++ : getTrack(trackId : UUID) 
+return Track
 
-alt music exists
-    data -> data++ : saveRating(musicId : UUID, rating : Rating)
+alt track exists
+    data -> data++ : saveRating(trackId : UUID, rating : Rating)
     return void | RatingException
 end
 

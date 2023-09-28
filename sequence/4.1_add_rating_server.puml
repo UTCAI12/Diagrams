@@ -9,18 +9,18 @@ end box
 
 actor TrackOwner as owner
 
-client ->> com : addRating(musicId : UUID, rating : Rating)
+client ->> com : addRating(trackId : UUID, rating : Rating)
 
 activate com
 
-com -> data++ : getMusic(musicId : UUID)
+com -> data++ : getMusic(trackId : UUID)
 note right : Les notes ne sont pas stockées.
-return music : Music
+return track : Track
 
-alt music exists
-    com ->> owner : addRating(musicId : UUID, rating : Rating)
-else music not exists
-    com ->> client : MusicNotFound
+alt track exists
+    com ->> owner : addRating(trackId : UUID, rating : Rating)
+else track not exists
+    com ->> client : TrackNotFound
 end
 
 deactivate com

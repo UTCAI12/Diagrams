@@ -7,16 +7,16 @@ box "Client App" #LightBlue
     participant Data as data
 end box
 
-server ->> com : addComment(musicId : UUID, comment : Comment)
+server ->> com : addComment(trackId : UUID, comment : Comment)
 
 activate com
-com -> data++ : addComment(musicId : UUID, comment : Comment)
+com -> data++ : addComment(trackId : UUID, comment : Comment)
 
-data -> data++ : getMusic(musicId : UUID) 
-return Music
+data -> data++ : getTrack(trackId : UUID) 
+return Track
 
-alt music exists
-    data -> data++ : saveComment(musicId : UUID, comment : Comment)
+alt track exists
+    data -> data++ : saveComment(trackId : UUID, comment : Comment)
     return void | CommentException
 end
 

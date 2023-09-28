@@ -9,18 +9,18 @@ end box
 
 actor TrackOwner as owner
 
-client ->> com : addComment(musicId : UUID, comment : Comment)
+client ->> com : addComment(trackId : UUID, comment : Comment)
 
 activate com
 
-com -> data++ : getMusic(musicId : UUID)
+com -> data++ : getTrack(TrackId : UUID)
 note right : Les commentaires ne sont pas stockés.
-return music : Music
+return track : Track
 
-alt music exists
-    com ->> owner : addComment(musicId : UUID, comment : Comment)
+alt track exists
+    com ->> owner : addComment(trackId : UUID, comment : Comment)
 else music not exists
-    com ->> client : MusicNotFound
+    com ->> client : TrackNotFound
 end
 
 deactivate com
