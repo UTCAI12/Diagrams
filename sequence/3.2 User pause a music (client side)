@@ -4,10 +4,10 @@ actor Client
 participant IHMMusic
 participant Data
 
-Client ->> IHMMusic : Pause Music
+Client ->> IHMMusic : Click on pause Music
 activate IHMMusic
 
-IHMMusic -> Data : pause_music
+IHMMusic -> Data : pause_music()
 activate Data
 return void | Exception
 deactivate Data
