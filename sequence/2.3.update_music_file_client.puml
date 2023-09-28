@@ -1,4 +1,4 @@
-@startuml Edit Music (client side)
+@startuml Edit Track (client side)
 actor User
 participant "IHM Music" as IHM
 participant Data
@@ -8,15 +8,15 @@ actor Server
 User ->> IHM : Enregistrer une fiche musique
 activate IHM
 
-IHM -> Data : save(Music, File)
+IHM -> Data : save(Track)
 activate Data
 
-opt Music is public
-    Data -> Communication : updateMusic(Music)
+opt Track is public
+    Data -> Communication : updateTrack(TrackLite)
     activate Communication
-    Communication ->> Server : updateMusic(Music)
+    Communication ->> Server : updateTrack(TrackLite)
     activate Server
-    Communication --> Data : void | Exceptions
+    Communication --> Data : void | Exception
     deactivate Communication
 end
 
@@ -26,10 +26,10 @@ deactivate IHM
 
 
 note across: The sequence below concerns any other users
-Server ->> Communication : updateMusic(Music)
+Server ->> Communication : updateTrack(TrackLite)
 deactivate Server
 activate Communication
-Communication -> Data : updateMusic(Music)
+Communication -> Data : updateTrack(TrackLite)
 activate Data
 Data --> Communication : void
 deactivate Data

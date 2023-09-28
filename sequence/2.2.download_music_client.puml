@@ -8,12 +8,12 @@ actor Server
 User ->> IHM : Click on "Download"
 activate IHM
 
-IHM -> Data : addToLibrary(Music)
+IHM -> Data : addToLibrary(TrackLite)
 activate Data
 
-Data -> Communication : downloadMusic(Music)
+Data -> Communication : download(TrackLite)
 activate Communication
-Communication ->> Server : downloadMusic(Music)
+Communication ->> Server : download(TrackLite)
 activate Server
 Communication --> Data : void | Exception
 deactivate Communication
@@ -22,10 +22,10 @@ Data --> IHM : void | Exception
 deactivate Data
 deactivate IHM
 
-Server ->> Communication : saveFileAndLinkToMusic(Music, File)
+Server ->> Communication : saveAudioFile(Track)
 deactivate Server
 activate Communication
-Communication -> Data : saveFileAndLinkToMusic(Music, File)
+Communication -> Data : saveAudioFile(Track)
 activate Data
 
 Data -> IHM : updateDisplay()

@@ -1,27 +1,29 @@
-@startuml Download Music (server side)
-actor "User (requesting file)" as User1
-participant Communication
-participant Data
-actor "User (owner of file)" as User2
+@startuml Download Track (server side)
+actor "User requesting the file" as User1
+box Server
+    participant Communication
+    participant Data
+end box
+actor "User owning the file" as User2
 
-User1 ->> Communication : downloadMusic(Music)
+User1 ->> Communication : download(TrackLite)
 activate Communication
 
-Communication -> Data : getOwner(Music)
+Communication -> Data : getOwner(TrackLite)
 activate Data
 
-Data --> Communication : User | Exception
+Data --> Communication : UserLite | Exception
 deactivate Data
 
-Communication ->> User2 : requestMusicFile(User, Music)
+Communication ->> User2 : requestAudioFile(UserLite, TrackLite)
 deactivate Communication
 activate User2
 
-User2 -->> Communication : File | Exception
+User2 -->> Communication : Track | Exception
 deactivate User2
 activate Communication
 
-Communication ->> User1 : saveFileAndLinkToMusic(Music, File)
+Communication ->> User1 : saveAudioFile(Track)
 deactivate Communication
 
 @enduml

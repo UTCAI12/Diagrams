@@ -8,7 +8,7 @@ actor Server
 User ->> IHM : Enregistrer une nouvelle fiche musique
 activate IHM
 
-IHM -> Data : save(Music, File)
+IHM -> Data : save(Track)
 activate Data
 
 Data --> IHM : void | Exception
