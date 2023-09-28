@@ -1,20 +1,24 @@
 @startuml Server is stopped (server side)
 
 actor Admin as admin
-participant IHMServer as ihm
-participant Communication as com
-participant Data as data
+
+box "Server App" #LightBlue
+    participant IHMServer as ihm
+    participant Communication as com
+end box
+
 actor ConnectedClient as client
 
 admin ->> ihm : Stop server
-note left : Aucun module IHMServer n'est défini. Cependant, \nil serait étrange que "Administrateur" envoie \ndirectement un message à "Communication, d'où une IHM.
+note left : Aucun module IHMServer n'est défini. Cependant, \nil serait étrange que "Administrateur" envoie \ndirectement un message à "Communication, d'où \nune IHM (ex: console).
 activate ihm
 
 ihm -> com++ : stopServer()
-com -> data++ : getUsers()
-return List<Users>
 
-loop user of users
+com -> com++ : getUserSockets()
+return sockets : Map<UUID, Socket>
+
+loop <uuid, socket> of sockets
     com -> client : serverClose()
 end
 
