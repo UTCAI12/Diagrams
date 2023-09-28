@@ -10,21 +10,22 @@ end box
 
 actor Server as server
 
-client ->> ihm : Add Comment
+client ->> ihm : Add Rating
 
-ihm -> data++ : addComment(musicId : UUID, comment : Comment)
-activate ihm
+ihm -> data++ : getTrack(trackId : UUID)
+return track : Track
 
-alt owning music
-    data -> data++ : saveComment(musicId : UUID, comment : Comment)
+alt track owned
+    ihm -> data++ : addComment(trackId : UUID, comment : Comment)
+    data -> data++ : saveComment(trackId : UUID, comment : Comment)
     return void | CommentException
-else not owning music
-    data -> com++ : addComment(musicId : UUID, comment : Comment)
-    com ->> server : addComment(musicId : UUID, comment : Comment)
+    return void | CommentException
+else track not owned
+    ihm -> com++ : addComment(trackId : UUID, comment : Comment)
+    com ->> server : addComment(trackId : UUID, comment : Comment)
     return void | NetworkException
 end
 
-return void | Exception
 deactivate ihm
 
 @enduml
