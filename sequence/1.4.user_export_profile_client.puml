@@ -2,11 +2,17 @@
 title 1.4 User export his profile to a file (client side)
 
 actor "User" as user
+
 box "Client App" #LightBlue
-    participant "HMI" as hmi
+    participant "HMIMain" as hmi
     participant "Data" as data
-    participant "Communication" as com
 end box
-actor "Server" as server
+
+user ->> hmi++ : Click on "Export profile"
+
+hmi -> data++ : exportProfile(filePath : str)
+return void | Exception
+
+deactivate hmi
 
 @enduml
