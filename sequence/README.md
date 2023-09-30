@@ -9,10 +9,10 @@
 
 | Number  | Name                                                      | Client side | Server side | Owner side | Others side |
 | ------- | --------------------------------------------------------- | ----------- | ----------- | ---------- | ----------- |
-| 1.1     | User starts the application                               | TODO        | /           | /          | /           |
+| 1.1     | User starts the application                               | OK          | /           | /          | /           |
 | 1.2     | User logs in                                              | OK          | TODO        | /          | TODO        |
 | ~~1.3~~ | ~~User import his profile from a file~~                   |             |             |            |             |
-| 1.4     | User export his profile to a file                         | TODO        | /           | /          | /           |
+| 1.4     | User export his profile to a file                         | OK          | /           | /          | /           |
 | ~~1.5~~ | ~~User creates a new profile~~                            |             |             |            |             |
 | 1.6     | User edits his profile                                    | OK          | OK          | /          | OK          |
 | 1.7     | User disconnects                                          | TODO        | TODO        | /          | TODO        |
