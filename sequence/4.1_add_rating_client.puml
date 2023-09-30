@@ -1,28 +1,36 @@
-@startuml 4.1. User add a rating to a music (client - sender)
+@startuml 4.1. User add a rating to a music (sender client side)
 
 actor Client as client
 
-participant IHMMusic as ihm
-participant Data as data
-participant Communication as com
+box "Client App" #LightBlue
+    participant IHMMusic as ihm
+    participant Data as data
+    participant Communication as com
+end box
 
 actor Server as server
 
-client ->> ihm : Add Rating
+client ->> ihm++: Add Rating
 
-ihm -> data++ : addRating(musicId : UUID, rating : Rating)
-activate ihm
+ihm -> data++ : getPlayedTrack()
+return track : Track
 
-alt owning music
-    data -> data++ : saveRating(musicId : UUID, rating : Rating)
-    return void | RatingException
-else not owning music
-    data -> com++ : addRating(musicId : UUID, rating : Rating)
-    com ->> server : addRating(musicId : UUID, rating : Rating)
+
+ihm -> data++ : addRating(trackId : UUID, rating : Rating)
+alt track owned
+    data->data++: saveTrackFile(trackId : UUID)
+    return void | Exception
+end
+
+deactivate ihm
+data->>ihm++:  NEW_RATING (Rating) 
+deactivate data 
+
+alt track not owned
+    ihm -> com++ : addRating(trackId : UUID, rating : Rating)
+    com ->> server : PUBLISH_RATING (Rating)
     return void | NetworkException
 end
 
-return void | Exception
-deactivate ihm
 
 @enduml

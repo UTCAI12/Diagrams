@@ -20,8 +20,12 @@
 
 ### Comments and ratings
 
--   PUBLISH_COMMENT (Comment) : Message send by the user who wants to publish a comment
--   PUBLISH_RATING (Rating) : Message send by the user who wants to publish a rating
+-   PUBLISH_COMMENT (UUID, Comment) : Message send by the user who wants to publish a comment
+-   PUBLISH_RATING (UUID, Rating) : Message send by the user who wants to publish a rating
+
+### Server events
+
+-   SERVER_STOPPED () : Message send by the server to all users when the server is stopped
 
 ## Event types emitted by the model
 
@@ -44,3 +48,9 @@
 
 -   NEW_COMMENT (Comment) : Emitted when a new comment is added (or published by an other user)
 -   NEW_RATING (Rating) : Emitted when a new rating is added (or published by an other user)
+
+## Event types emitted by the controller
+
+### Server
+
+-   SERVER_STOPPED () : Emitted when the server is stopped

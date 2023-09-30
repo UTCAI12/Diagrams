@@ -1,28 +1,33 @@
-@startuml 4.2. User add a comment to a music (client - sender)
+@startuml 4.2. User add a comment to a music (sender client side)
 
 actor Client as client
 
-participant IHMMusic as ihm
-participant Data as data
-participant Communication as com
+box "Client App" #LightBlue
+    participant IHMMusic as ihm
+    participant Data as data
+    participant Communication as com
+end box
 
 actor Server as server
 
-client ->> ihm : Add Comment
+client ->> ihm++: Add Comment
 
-ihm -> data++ : addComment(musicId : UUID, comment : Comment)
-activate ihm
+ihm -> data++ : getPlayedTrack()
+return track : Track
 
-alt owning music
-    data -> data++ : saveComment(musicId : UUID, comment : Comment)
-    return void | CommentException
-else not owning music
-    data -> com++ : addComment(musicId : UUID, comment : Comment)
-    com ->> server : addComment(musicId : UUID, comment : Comment)
-    return void | NetworkException
+
+ihm -> data++ : addComment(trackId : UUID, rating : Comment)
+alt track owned
+    data->data++: saveTrackFile(trackId : UUID)
+    return void | Exception
 end
 
-return void | Exception
 deactivate ihm
+data->>ihm++:  NEW_COMMENT (Comment) 
+deactivate data 
 
-@enduml
+alt track not owned
+    ihm -> com++ : addComment(trackId : UUID, rating : Comment)
+    com ->> server : PUBLISH_COMMENT (Comment)
+    return void | NetworkException
+end

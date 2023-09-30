@@ -1,0 +1,26 @@
+@startuml Server is stopped (server side)
+
+actor Admin as admin
+
+box "Server App" #LightBlue
+    participant IHMServer as ihm
+    participant Communication as com
+end box
+
+actor ConnectedClient as client
+
+admin ->> ihm : Stop server
+note left : No IHMServer module is defined. However, \nit would be strange for "Administrator" to send\na message directly to "Communication,"\nhence an IHM (e.g., console).
+activate ihm
+
+ihm -> com++ : stopServer()
+
+loop <uuid, socket> of sockets
+    com -> client : SERVER_STOPPED ()
+end
+
+return void
+
+deactivate ihm
+
+@enduml
