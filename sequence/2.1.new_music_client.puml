@@ -1,20 +1,20 @@
 @startuml 2.1 User add a music to his local library from a local file (client side)
 title 2.1 User add a music to his local library from a local file (client side)
 
-actor User
-box "Client" #LightBlue
-    participant "IHM Music" as IHM
-    participant Data
+actor "User" as user
+box "Client App" #LightBlue
+    participant "HMI" as hmi
+    participant "Data" as data
 end box
 
-User ->> IHM : Adding a track to the local library
-activate IHM
+user ->> hmi : Adding a track to the local library
+activate hmi
 
-IHM -> Data : save(Track)
-activate Data
+hmi -> data : save(Track)
+activate data
 
-Data --> IHM : void | Exception
-deactivate Data
-deactivate IHM
+data --> hmi : void | Exception
+deactivate data
+deactivate hmi
 
 @enduml

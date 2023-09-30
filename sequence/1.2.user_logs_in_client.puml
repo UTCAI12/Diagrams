@@ -1,51 +1,49 @@
 @startuml 1.2 User logs in (client)
 title 1.2 User logs in (client)
 
-actor NewClient
-
-box Client App #LightBlue
-    participant HMIMain as HMI
-    participant Data
-    participant Communication
+actor "User" as user
+box "Client App" #LightBlue
+    participant "HMI" as hmi
+    participant "Data" as data
+    participant "Communication" as com
 end box
-
-actor Server 
+actor "Server" as server
 
 opt Create new profile 
     alt Profile file exists
-        NewClient ->> HMI++: Click on "Import profile"
-        HMI -> Data++: importProfile(filePath: str)
+        user ->> hmi++: Click on "Import profile"
+        hmi -> data++: importProfile(filePath: str)
         return status: bool
-        deactivate HMI 
+        deactivate hmi 
     else Profile file doesn't exist
-        NewClient ->> HMI++: Click on "Create profile"
-        HMI -> Data++: createProfile(newClient: Client)
+        user ->> hmi++: Click on "Create profile"
+        hmi -> data++: createProfile(newClient: Client)
         return status: bool
-        deactivate HMI
+        deactivate hmi
     end
 end
 
 
 
-NewClient ->> HMI++: Click on "Login"
-HMI -> Data++: checkCredentials(user: str, pw: str)
+user ->> hmi++: Click on "Login"
+hmi -> data++: checkCredentials(user: str, pw: str)
 return valid : boolean
 
 opt credentials correct
-    HMI -> Communication++ : connect(User, List<Track>)
-    Communication->>Server: USER_CONNECT (User)
+    hmi -> com++ : connect(User, List<Track>)
+    com->>server: USER_CONNECT (User)
     return void | NetworkException
 end
 
-deactivate HMI
+deactivate hmi
 
 opt Credentials are correct
-    Server ->> Communication++: USER_CONNECTED (List<UserLite>)
-    deactivate Server
-    Communication->Data++: setConnectedUsers(List<UserLite>)
-    Data->>HMI : NEW_USERS()
+    server ->> com++: USER_CONNECTED (List<UserLite>)
+    deactivate server
+    com->data++: setConnectedUsers(List<UserLite>)
+    data->>hmi : NEW_USERS()
     return void
-    deactivate Communication
+    deactivate com
 end
 
 @enduml
