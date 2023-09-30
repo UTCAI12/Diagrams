@@ -2,10 +2,10 @@
 title 2.3 User edit the music file information (others side)
 
 actor "Server" as server
-box "Client application" #LightBlue
-    participant Communication as com
-    participant Data as data
-    participant HMI as hmi
+box "Client application" #LightYellow
+    participant "Communication" as com
+    participant "Data" as data
+    participant "HMI" as hmi
 end box
 
 opt 
