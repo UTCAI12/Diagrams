@@ -1,0 +1,29 @@
+@startuml 2.2 User add a music to his local library from a distant file (server side)
+actor "User" as user
+box Server
+    participant Communication
+    participant Data
+end box
+actor "Owner" as owner
+
+user ->> Communication : GET_TRACK (UUID)
+activate Communication
+
+Communication -> Data : getUser(UUID: trackId)
+activate Data
+
+Data --> Communication : UserLite | Exception
+deactivate Data
+
+Communication ->> owner : GET_TRACK (UUID)
+deactivate Communication
+activate owner
+
+owner ->> Communication : DOWNLOAD_TRACK (Track)
+deactivate owner
+activate Communication
+
+Communication ->> user : DOWNLOAD_TRACK (Track)
+deactivate Communication
+
+@enduml

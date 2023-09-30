@@ -1,0 +1,33 @@
+@startuml 4.2. User add a comment to a music (sender client side)
+
+actor Client as client
+
+box "Client App" #LightBlue
+    participant HMIMusic as hmi
+    participant Data as data
+    participant Communication as com
+end box
+
+actor Server as server
+
+client ->> hmi++: Add Comment
+
+hmi -> data++ : getPlayedTrack()
+return track : Track
+
+
+hmi -> data++ : addComment(trackId : UUID, rating : Comment)
+alt track owned
+    data->data++: saveTrackFile(trackId : UUID)
+    return void | Exception
+end
+
+deactivate hmi
+data->>hmi++:  NEW_COMMENT (Comment) 
+deactivate data 
+
+alt track not owned
+    hmi -> com++ : addComment(trackId : UUID, rating : Comment)
+    com ->> server : PUBLISH_COMMENT (Comment)
+    return void | NetworkException
+end

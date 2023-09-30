@@ -1,0 +1,24 @@
+@startuml 2.2 User add a music to his local library from a distant file (client side)
+actor Client
+box "Client App" #LightBlue
+    participant HMIMusic
+    participant Data
+    participant Communication
+end box
+
+actor Server 
+
+Client ->> HMIMusic++: Click "add to library"
+
+HMIMusic -> Data++: addTrackToLibrary(uuid : UUID)
+Data -> Communication++: downloadTrack(uuid : UUID)
+Communication ->> Server++: GET_TRACK (UUID)
+Communication --> Data: void | Exception
+deactivate Data
+deactivate Communication
+
+Server ->> Communication++: DOWNLOAD_TRACK (Track) 
+Communication -> Data++: updateTrack(track : Track)
+Data->>HMIMusic: TRACK_READY_DOWNLOAD (Track) 
+
+@enduml

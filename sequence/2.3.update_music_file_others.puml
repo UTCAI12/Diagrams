@@ -1,0 +1,32 @@
+@startuml  2.3 User edit the music file information (others side)
+actor "Server" as server
+box "Client application" #LightBlue
+    participant Communication as com
+    participant Data as data
+    participant HMI as hmi
+end box
+
+opt 
+    server ->> com++:  UPDATE_TRACK (TrackLite) 
+    com -> data++: updateTrack(TrackLite)
+    data->>hmi: UPDATE_TRACK (TrackLite) 
+    return void | Exception
+    deactivate com
+end
+
+opt 
+    server ->> com++:  PUBLISH_TRACK (TrackLite) 
+    com -> data++: publishTrack(TrackLite)
+    data->>hmi: NEW_TRACK (TrackLite) 
+    return void | Exception
+    deactivate com
+end
+
+opt 
+    server ->> com++:  UNPUBLISH_TRACK (TrackLite) 
+    com -> data++: unpublishTrack(TrackLite)
+    data->>hmi: DELETE_TRACK (TrackLite) 
+    return void | Exception
+end
+
+@enduml

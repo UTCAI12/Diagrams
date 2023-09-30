@@ -1,0 +1,26 @@
+@startuml 4.2. User add a comment to a music (server side)
+
+actor Client as client
+
+box "Client App" #LightBlue
+    participant Communication as com
+    participant Data as data
+end box
+
+actor ConnectedUsers as connected
+
+client ->> com : PUBLISH_COMMENT (UUID, Comment)
+
+activate com
+
+com -> data++ : getTrack(trackId : UUID)
+note right : Comments are not stored on the server's RAM 
+return Track | Exception
+
+alt track exists
+    com ->> connected : PUBLISH_COMMENT (UUID, Comment)
+end
+
+deactivate com
+
+@enduml

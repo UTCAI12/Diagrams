@@ -1,0 +1,30 @@
+@startuml 2.3 User edit the music file information (client side)
+actor User
+box "Client application" #LightBlue
+    participant "IHM Music" as IHM
+    participant Data 
+    participant Communication
+end box
+actor Server
+
+User ->> IHM++: Click on "save changes"
+
+IHM -> Data++: saveTrack(Track)
+Data->>IHM: UPDATE_TRACK (Track)
+deactivate Data
+
+alt Track stay public
+    IHM -> Communication++: updateTrack(TrackLite)
+    Communication ->> Server : UPDATE_TRACK (TrackLite)
+    return void | Exception
+else Track was private
+    IHM -> Communication++: publishTrack(TrackLite)
+    Communication ->> Server : PUBLISH_TRACK (TrackLite)
+    return void | Exception
+else Track is no longer public 
+    IHM -> Communication++: unpublishTrack(TrackLite)
+    Communication ->> Server : UNPUBLISH_TRACK (TrackLite)
+    return void | Exception
+end
+
+@enduml

@@ -1,0 +1,18 @@
+@startuml 2.1 User add a music to his local library from a local file (client side)
+actor User
+box "Client" #LightBlue
+    participant "IHM Music" as IHM
+    participant Data
+end box
+
+User ->> IHM : Adding a track to the local library
+activate IHM
+
+IHM -> Data : save(Track)
+activate Data
+
+Data --> IHM : void | Exception
+deactivate Data
+deactivate IHM
+
+@enduml
