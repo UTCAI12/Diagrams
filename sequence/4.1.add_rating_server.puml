@@ -7,7 +7,7 @@ box "Server App" #LightBlue
     participant Data as data
 end box
 
-actor ConnectedClients as owner
+actor ConnectedClients as connected
 
 client ->> com : PUBLISH_RATING (UUID, Rating)
 
@@ -18,7 +18,7 @@ note right : Notes are not stored on the server's RAM
 return Track | Exception
 
 alt track exists
-    com ->> owner : PUBLISH_RATING (UUID, Rating)
+    com ->> connected : PUBLISH_RATING (UUID, Rating)
 end
 
 deactivate com

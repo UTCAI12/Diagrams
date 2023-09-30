@@ -7,7 +7,7 @@ box "Client App" #LightBlue
     participant Data as data
 end box
 
-actor TrackOwner as owner
+actor ConnectedUsers as connected
 
 client ->> com : PUBLISH_COMMENT (UUID, Comment)
 
@@ -18,7 +18,7 @@ note right : Comments are not stored on the server's RAM
 return Track | Exception
 
 alt track exists
-    com ->> owner : PUBLISH_COMMENT (UUID, Comment)
+    com ->> connected : PUBLISH_COMMENT (UUID, Comment)
 end
 
 deactivate com
