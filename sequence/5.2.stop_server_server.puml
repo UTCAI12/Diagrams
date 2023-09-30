@@ -1,14 +1,12 @@
 @startuml 5.2 Server is stopped (server side)
 title 5.2 Server is stopped (server side)
 
-actor Admin as admin
-
-box "Server App" #LightBlue
-    participant HMIServer as hmi
-    participant Communication as com
+actor "Admin" as admin
+box "Server App" #LightGreen
+    participant "HMI" as hmi
+    participant "Communication" as com
 end box
-
-actor ConnectedClient as client
+actor "Connected Clients" as connected
 
 admin ->> hmi : Stop server
 note left : No HMIServer module is defined. However, \nit would be strange for "Administrator" to send\na message directly to "Communication,"\nhence an HMI (e.g., console).
@@ -17,7 +15,7 @@ activate hmi
 hmi -> com++ : stopServer()
 
 loop <uuid, socket> of sockets
-    com -> client : SERVER_STOPPED ()
+    com -> connected : SERVER_STOPPED ()
 end
 
 return void

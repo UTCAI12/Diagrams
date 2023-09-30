@@ -2,12 +2,11 @@
 title 2.3 User edit the music file information (server side)
 
 actor "Client" as client
-box "Server Application"
-    participant Communication as com
-    participant Data as data
+box "Server App" #LightGreen
+    participant "Communication" as com
+    participant "Data" as data
 end box
-actor "Connected Users" as connected
-
+actor "Connected Clients" as connected
 
 opt 
     client ->> com++:  UPDATE_TRACK (TrackLite) 

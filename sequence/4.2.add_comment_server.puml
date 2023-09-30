@@ -1,14 +1,12 @@
 @startuml 4.2 User add a comment to a music (server side)
 title 4.2 User add a comment to a music (server side)
 
-actor Client as client
-
-box "Client App" #LightBlue
-    participant Communication as com
-    participant Data as data
+actor "Client" as client
+box "Server App" #LightGreen
+    participant "Communication" as com
+    participant "Data" as data
 end box
-
-actor ConnectedUsers as connected
+actor "Connected Clients" as connected
 
 client ->> com : PUBLISH_COMMENT (UUID, Comment)
 

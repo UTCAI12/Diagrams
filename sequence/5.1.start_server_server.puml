@@ -1,34 +1,33 @@
 @startuml 5.1 Server is started (server side)
 title 5.1 Server is started (server side)
 
-actor Admin as admin
-
-box "Server App" #LightBlue
-    participant Main as main
-    participant Communication as com
-    participant Data as data
+actor "Admin" as admin
+box "Server App" #LightGreen
+    participant "HMI" as hmi
+    participant "Communication" as com
+    participant "Data" as data
 end box
 
-admin ->> main : Start server
-activate main
+admin ->> hmi : Start server
+activate hmi
 
 create com
-main -> com++ : new()
+hmi -> com++ : new()
 return object : Communication
 
 create data
-main -> data++ : new()
+hmi -> data++ : new()
 return object : Data
 
-main -> com++ : setData(data : Data)
+hmi -> com++ : setData(data : Data)
 return void
 
-main -> data++ : setCommunication(com : Communication)
+hmi -> data++ : setCommunication(com : Communication)
 return void
 
-main -> com++ : startServer(port : int)
+hmi -> com++ : startServer(port : int)
 return void | ServerOpenException
 
-deactivate main
+deactivate hmi
 
 @enduml
