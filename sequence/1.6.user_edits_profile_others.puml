@@ -1,0 +1,15 @@
+@startuml 1.6 User edits his profile (Server)
+
+actor "Server" as server
+box "Client application" #LightBlue
+    participant Communication as com
+    participant Data as data
+    participant HMI as hmi
+end box
+
+server ->> com++: USER_UPDATE (User)
+com->data++: updateUser(User)
+data->>hmi++:UPDATE_USER(User)
+deactivate hmi
+return void | Exception
+@enduml

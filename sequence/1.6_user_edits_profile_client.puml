@@ -1,0 +1,19 @@
+@startuml 1.6 User edits his profile (client side)
+
+actor User as user
+box "Client application" #LightBlue
+    participant IHMMain as ihm
+    participant Data as data
+    participant Communication as com
+end box
+actor Server as server
+
+user ->> ihm++: Click on "Save changes"
+ihm->data++: editUser(User)
+data->>ihm++: UPDATE_USER(User)
+ihm->com++: editUser(User)
+com->>server: USER_UPDATE (User)
+deactivate ihm
+deactivate com
+return void | Exception
+@enduml
