@@ -1,20 +1,33 @@
-@startuml Edit Track (server side)
-actor "User who updated" as User1
-box Server
-    participant Communication
-    participant Data
+@startuml  2.3 User edit the music file information (server side)
+actor "Client" as client
+box "Server Application"
+    participant Communication as com
+    participant Data as data
 end box
-actor "Users to notify" as User2
+actor "Connected Users" as connected
 
-User1 ->> Communication : updateTrack(TrackLite)
-activate Communication
-Communication -> Data : updateTrack(TrackLite)
-activate Data
-Data --> Communication : void | Exception
-deactivate Data
 
-Communication ->> User2 : notifyAllTrackUpdated(TrackLite)
-deactivate Communication
-activate User2
+opt 
+    client ->> com++:  UPDATE_TRACK (TrackLite) 
+    com -> data++: updateTrack(TrackLite)
+    return void | Exception
+    com->>connected: UPDATE_TRACK (TrackLite) 
+    deactivate com
+end
 
+opt 
+    client ->> com++:  PUBLISH_TRACK (TrackLite) 
+    com -> data++: publishTrack(TrackLite)
+    return void | Exception
+    com->>connected: PUBLISH_TRACK (TrackLite) 
+    deactivate com
+end
+
+opt 
+    client ->> com++:  UNPUBLISH_TRACK (TrackLite) 
+    com -> data++: unpublishTrack(TrackLite)
+    return void | Exception
+    com->>connected: UNPUBLISH_TRACK (TrackLite) 
+    deactivate com
+end
 @enduml
