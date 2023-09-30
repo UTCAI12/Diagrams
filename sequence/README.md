@@ -4,7 +4,7 @@
 
 ## 1. Login and profiles management
 
--   1.1 User starts the application (client side)s
+-   1.1 User starts the application (client side)
     -   All objects are created
 -   1.2 User logs in (client side and server side)
     -   User set his login and password
@@ -27,7 +27,7 @@
 -   2.1 User add a music to his local library from a local file (client side)
 -   2.2 User add a music to his local library from a distant file (client side and server side)
 -   2.3 User edit the music file information (client side and server side)
--   ~~2.4 User edit the visibility of music for the network (client side and server side)~~ Now included in 2.3
+-   2.4 User edit the visibility of music for the network (client side and server side)
 
 ## 3. Listening music
 
