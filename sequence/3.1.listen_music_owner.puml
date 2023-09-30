@@ -1,0 +1,9 @@
+@startuml 3.1 User select a track to start listening (connected clients side)
+
+actor "Server" as Server
+box "Client App" #LightGray
+    participant "Communication" as com
+    participant "Data" as data
+end box
+
+@enduml

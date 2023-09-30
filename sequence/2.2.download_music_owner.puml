@@ -1,8 +1,9 @@
 @startuml 2.2 User add a music to his local library from a distant file (owner client side)
-actor Server
-box "Client App" #LightBlue
-    participant Communication as com
-    participant Data as data
+
+actor "Server" as Server
+box "Client App" #LightGray
+    participant "Communication" as com
+    participant "Data" as data
 end box
 
 

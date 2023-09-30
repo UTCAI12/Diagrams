@@ -1,0 +1,10 @@
+@startuml 1.2 User logs in (server side)
+
+actor "Client" as client
+box "Server App" #LightGreen
+    participant "Communication" as com
+    participant "Data" as data
+end box
+actor "Connected Clients" as connected
+
+@enduml

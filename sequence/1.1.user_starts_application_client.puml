@@ -1,0 +1,11 @@
+@startuml 1.1 User starts the application (client side)
+
+actor "User" as user
+box "Client App" #LightBlue
+    participant "HMI" as hmi
+    participant "Data" as data
+    participant "Communication" as com
+end box
+actor "Server" as server
+
+@enduml
