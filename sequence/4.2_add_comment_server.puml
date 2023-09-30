@@ -1,4 +1,4 @@
-@startuml 4.2. User add a comment to a music (server)
+@startuml 4.2. User add a comment to a music (server side)
 
 actor Client as client
 
@@ -9,18 +9,16 @@ end box
 
 actor TrackOwner as owner
 
-client ->> com : addComment(trackId : UUID, comment : Comment)
+client ->> com : PUBLISH_COMMENT (UUID, Comment)
 
 activate com
 
-com -> data++ : getTrack(TrackId : UUID)
-note right : Les commentaires ne sont pas stockés.
-return track : Track
+com -> data++ : getTrack(trackId : UUID)
+note right : Comments are not stored on the server's RAM 
+return Track | Exception
 
 alt track exists
-    com ->> owner : addComment(trackId : UUID, comment : Comment)
-else music not exists
-    com ->> client : TrackNotFound
+    com ->> owner : PUBLISH_COMMENT (UUID, Comment)
 end
 
 deactivate com

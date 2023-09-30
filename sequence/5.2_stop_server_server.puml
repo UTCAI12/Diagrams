@@ -10,16 +10,13 @@ end box
 actor ConnectedClient as client
 
 admin ->> ihm : Stop server
-note left : Aucun module IHMServer n'est défini. Cependant, \nil serait étrange que "Administrateur" envoie \ndirectement un message à "Communication, d'où \nune IHM (ex: console).
+note left : No IHMServer module is defined. However, \nit would be strange for "Administrator" to send\na message directly to "Communication,"\nhence an IHM (e.g., console).
 activate ihm
 
 ihm -> com++ : stopServer()
 
-com -> com++ : getUserSockets()
-return sockets : Map<UUID, Socket>
-
 loop <uuid, socket> of sockets
-    com -> client : serverClose()
+    com -> client : SERVER_STOPPED ()
 end
 
 return void

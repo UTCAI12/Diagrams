@@ -1,4 +1,4 @@
-@startuml 4.1 User add a rating to a music (server)
+@startuml 4.1 User add a rating to a music (server side)
 
 actor Client as client
 
@@ -7,20 +7,18 @@ box "Server App" #LightBlue
     participant Data as data
 end box
 
-actor TrackOwner as owner
+actor ConnectedClients as owner
 
-client ->> com : addRating(trackId : UUID, rating : Rating)
+client ->> com : PUBLISH_RATING (UUID, Rating)
 
 activate com
 
-com -> data++ : getMusic(trackId : UUID)
-note right : Les notes ne sont pas stockées.
-return track : Track
+com -> data++ : getTrack(trackId : UUID)
+note right : Notes are not stored on the server's RAM 
+return Track | Exception
 
 alt track exists
-    com ->> owner : addRating(trackId : UUID, rating : Rating)
-else track not exists
-    com ->> client : TrackNotFound
+    com ->> owner : PUBLISH_RATING (UUID, Rating)
 end
 
 deactivate com

@@ -1,4 +1,4 @@
-@startuml 4.1. User add a rating to a music (client - sender)
+@startuml 4.1. User add a rating to a music (sender client side)
 
 actor Client as client
 
@@ -10,22 +10,27 @@ end box
 
 actor Server as server
 
-client ->> ihm : Add Rating
+client ->> ihm++: Add Rating
 
-ihm -> data++ : getTrack(trackId : UUID)
+ihm -> data++ : getPlayedTrack()
 return track : Track
 
+
+ihm -> data++ : addRating(trackId : UUID, rating : Rating)
 alt track owned
-    ihm -> data++ : addRating(trackId : UUID, rating : Rating)
-    data -> data++ : saveRating(trackId : UUID, rating : Rating)
-    return void | RatingException
-    return void | RatingException
-else track not owned
-    ihm -> com++ : addRating(trackId : UUID, rating : Rating)
-    com ->> server : addRating(trackId : UUID, rating : Rating)
-    return void | NetworkException
+    data->data++: saveTrackFile(trackId : UUID)
+    return void | Exception
 end
 
 deactivate ihm
+data->>ihm++:  NEW_RATING (Rating) 
+deactivate data 
+
+alt track not owned
+    ihm -> com++ : addRating(trackId : UUID, rating : Rating)
+    com ->> server : PUBLISH_RATING (Rating)
+    return void | NetworkException
+end
+
 
 @enduml
