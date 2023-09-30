@@ -11,7 +11,7 @@ box "Client App" #LightBlue
     participant "HMIMusic" as hmimusic
 end box
 
-user ->> main : Start Application
+user ->> main++ : Start Application
 
 create data
 main -> data++ : new()
@@ -50,7 +50,9 @@ return void
 main -> hmimain++ : setHMIMusic(HMIMusic)
 return void
 
-main -> hmimain : startApplication()
+main -> hmimain++ : startApplication()
 return void
+
+deactivate main
 
 @enduml
