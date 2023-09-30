@@ -1,0 +1,60 @@
+html,
+body {
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    width: 100%;
+}
+#container {
+    width: 70%;
+    margin: auto;
+    background-color: #f8f8f8;
+    min-height: 100vh;
+    padding: 0 15px;
+}
+#container h1 {
+    margin-top: 0;
+}
+
+img.clickable {
+    cursor: pointer;
+}
+
+.imagesContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.imagesContainer .imageCard {
+    width: 20%;
+    margin: 35px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #ccc;
+}
+
+.imagesContainer .imageCard img {
+    width: 100%;
+    object-fit: cover;
+    height: 200px;
+}
+
+.imagesContainer .imageCard img.fullScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.7);
+    max-height: unset;
+}
+
+.imagesContainer .imageCard .imageInfo {
+    padding: 10px;
+    color: black;
+    align-items: center;
+    text-align: center;
+}

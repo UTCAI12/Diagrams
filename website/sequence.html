@@ -1,0 +1,85 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AI12 - Diagrams</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div id="container">
+            <h1><a href="./index.html">Conception AI12 - A23</a></h1>
+            <h2>Sequence diagrams</h2>
+            <p><a href="./images/sequence/">Direct link to images</a></p>
+            <div id="sequenceDiagramsContainer"></div>
+        </div>
+    </body>
+    <script>
+        const categories = [
+            "1. Login and profiles management",
+            "2. Local music management",
+            "3. Listening music",
+            "4. Rating and comments",
+            "5. Server",
+        ];
+
+        const imagesNames = [
+            "1.2 User logs in (client).png",
+            "1.6 User edits his profile (client side).png",
+            "1.6 User edits his profile (server side).png",
+            "1.6 User edits his profile (Server).png",
+            "2.1 User add a music to his local library from a local file (client side).png",
+            "2.2 User add a music to his local library from a distant file (client side).png",
+            "2.2 User add a music to his local library from a distant file (owner client side).png",
+            "2.2 User add a music to his local library from a distant file (server side).png",
+            "2.3 user edit the music file information (client side).png",
+            "2.3 User edit the music file information (others side).png",
+            "2.3 User edit the music file information (server side).png",
+            "3.1 User select a track to start listening (client).png",
+            "3.2 User pause a music (user side).png",
+            "4.1 User add a rating to a music (connected clients side).png",
+            "4.1 User add a rating to a music (server side).png",
+            "4.1 User add a rating to a music (user side).png",
+            "4.2 User add a comment to a music (connected clients side).png",
+            "4.2 User add a comment to a music (server side).png",
+            "4.2 User add a comment to a music (user side).png",
+            "5.1 Server is started (server side).png",
+            "5.2 Server is stopped (connected clients side).png",
+            "5.2 Server is stopped (server side).png",
+        ];
+
+        const sequenceDiagramsContainer = document.getElementById(
+            "sequenceDiagramsContainer"
+        );
+
+        for (let i = 0; i < categories.length; i++) {
+            const category = categories[i];
+            sequenceDiagramsContainer.innerHTML += `<h3>${category}</h3>`;
+            sequenceDiagramsContainer.innerHTML += `<div class="imagesContainer"></div>`;
+            const imagesContainer = sequenceDiagramsContainer.lastChild;
+
+            for (let j = 0; j < imagesNames.length; j++) {
+                const image = imagesNames[j];
+                if (image.startsWith(category.split(".")[0])) {
+                    imagesContainer.innerHTML += `
+                    <div class="imageCard">
+                        <img class="clickable" src="./images/sequence/${image}" />
+                        <div class="imageInfo">${image.split(".png")[0]}</div>
+                    </div>
+                    `;
+                }
+            }
+        }
+
+        const images = document.getElementsByClassName("clickable");
+        for (let i = 0; i < images.length; i++) {
+            const image = images[i];
+            image.addEventListener("click", () => {
+                image.classList.toggle("fullScreen");
+            });
+        }
+    </script>
+</html>
