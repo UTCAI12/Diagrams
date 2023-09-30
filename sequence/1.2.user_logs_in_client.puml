@@ -29,15 +29,13 @@ user ->> hmi++: Click on "Login"
 hmi -> data++: checkCredentials(user: str, pw: str)
 return valid : boolean
 
-opt credentials correct
+opt credentials are correct
     hmi -> com++ : connect(User, List<Track>)
     com->>server: USER_CONNECT (User)
     return void | NetworkException
-end
 
-deactivate hmi
+    deactivate hmi
 
-opt Credentials are correct
     server ->> com++: USER_CONNECTED (List<UserLite>)
     deactivate server
     com->data++: setConnectedUsers(List<UserLite>)
