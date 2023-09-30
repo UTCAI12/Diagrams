@@ -2,11 +2,57 @@
 title 1.1 User starts the application (client side)
 
 actor "User" as user
+
 box "Client App" #LightBlue
-    participant "HMI" as hmi
+    participant "Main" as main
     participant "Data" as data
     participant "Communication" as com
+    participant "HMIMain" as hmimain
+    participant "HMIMusic" as hmimusic
 end box
-actor "Server" as server
+
+user ->> main++ : Start Application
+
+create data
+main -> data++ : new()
+return object : Data
+
+create com
+main -> com++ : new()
+return object : Communication
+
+create hmimusic
+main -> hmimusic++ : new()
+return object : HMIMusic
+
+create hmimain
+main -> hmimain++ : new()
+return object : HMIMain
+
+main -> com++ : setData(Data)
+return void
+
+main -> hmimusic++ : setCommunication(Communication)
+return void
+
+main -> hmimusic++ : setData(Data)
+return void
+
+main -> hmimusic++ : setHMIMain(HMIMain)
+return void
+
+main -> hmimain++ : setCommunication(Communication)
+return void
+
+main -> hmimain++ : setData(Data)
+return void
+
+main -> hmimain++ : setHMIMusic(HMIMusic)
+return void
+
+main -> hmimain++ : startApplication()
+return void
+
+deactivate main
 
 @enduml
