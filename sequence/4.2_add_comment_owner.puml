@@ -1,0 +1,23 @@
+@startuml 4.2 User add a comment to a music (client - owner)
+
+actor Server as server
+
+participant Communication as com
+participant Data as data
+
+server ->> com : addComment(musicId : UUID, comment : Comment)
+
+activate com
+com -> data++ : addComment(musicId : UUID, comment : Comment)
+
+data -> data++ : getMusic(musicId : UUID) 
+return Music
+
+alt music exists
+    data -> data++ : saveComment(musicId : UUID, comment : Comment)
+    return void | CommentException
+end
+
+return void
+
+@enduml

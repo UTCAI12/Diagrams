@@ -1,0 +1,23 @@
+@startuml 4.1 User add a rating to a music (client - owner)
+
+actor Server as server
+
+participant Communication as com
+participant Data as data
+
+server ->> com : addRating(musicId : UUID, rating : Rating)
+
+activate com
+com -> data++ : addRating(musicId : UUID, rating : Rating)
+
+data -> data++ : getMusic(musicId : UUID) 
+return Music
+
+alt music exists
+    data -> data++ : saveRating(musicId : UUID, rating : Rating)
+    return void | RatingException
+end
+
+return void
+
+@enduml
