@@ -8,4 +8,9 @@ box "Client application" #LightYellow
     participant "HMI" as hmi
 end box
 
+server->>com++: USER_CONNECT (List<UserLite>)
+com->data++: addUser(UserLite)
+data->>hmi: NEW_USER (User)
+return void | Exception
+
 @enduml
