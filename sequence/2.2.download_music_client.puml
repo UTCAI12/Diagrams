@@ -1,11 +1,13 @@
-@startuml Download Music (client side)
+@startuml 2.2 User add a music to his local library from a distant file (client side)
 actor User
-participant "IHM Music" as IHM
-participant Data
-participant Communication
+box "Client side" #LightBlue
+    participant "IHM Music" as IHM
+    participant Data
+    participant Communication
+end box
 actor Server
 
-User ->> IHM : Click on "Download"
+User ->> IHM : Click on "Add to library"
 activate IHM
 
 IHM -> Data : addToLibrary(TrackLite)

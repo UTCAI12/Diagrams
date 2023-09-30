@@ -1,0 +1,22 @@
+@startuml 4.1 User add a rating to a music (connected clients side)
+
+actor Server as server
+
+box "Client App" #LightBlue
+    participant Communication as com
+    participant Data as data
+end box
+
+server ->> com : PUBLISH_RATING (UUID, Rating)
+
+activate com
+com -> data++ : addRating(trackId : UUID, rating : Rating)
+
+alt track owned
+    data->data++: saveTrackFile(trackId : UUID)
+    return void | Exception
+end
+
+return void
+
+@enduml

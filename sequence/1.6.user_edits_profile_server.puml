@@ -1,0 +1,17 @@
+@startuml 1.6 User edits his profile (Server)
+
+actor Client as client
+
+box "Server App" #LightBlue
+    participant Communication as com
+    participant Data as data
+end box
+
+actor ConnectedUsers as connected
+
+client ->> com++: USER_UPDATE (user)
+com->data++: updateUser(User: user)
+return void | Exception
+com->>connected: USER_UPDATE (UserLite)
+deactivate
+@enduml

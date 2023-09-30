@@ -1,11 +1,11 @@
-@startuml New Local Music
+@startuml 2.1 User add a music to his local library from a local file (client side)
 actor User
-participant "IHM Music" as IHM
-participant Data
-participant Communication
-actor Server
+box "Client" #LightBlue
+    participant "IHM Music" as IHM
+    participant Data
+end box
 
-User ->> IHM : Enregistrer une nouvelle fiche musique
+User ->> IHM : Adding a track to the local library
 activate IHM
 
 IHM -> Data : save(Track)
