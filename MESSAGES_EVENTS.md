@@ -13,7 +13,7 @@
 ### Tracks
 
 -   GET_TRACK (UUID) : Message send by the user who wants to get the full data model of a track
--   DOWNLOAD_TRACK (Track) : Message send by the server to the user who wants to download a track
+-   DOWNLOAD_TRACK (Track) : Message send by the user who own the track to the user who wants to download it (in response to GET_TRACK)
 -   PUBLISH_TRACK (Track) : Message send by the user who wants to publish a track
 -   UNPUBLISH_TRACK (Track) : Message send by the user who wants to unpublish a track
 -   UPDATE_TRACK (Track) : Message send by the user who wants to update a track

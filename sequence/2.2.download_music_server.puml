@@ -1,4 +1,4 @@
-@startuml Download Track (server side)
+@startuml 2.2 User add a music to his local library from a distant file (server side)
 actor "User requesting the file" as User1
 box Server
     participant Communication
@@ -6,24 +6,24 @@ box Server
 end box
 actor "User owning the file" as User2
 
-User1 ->> Communication : download(TrackLite)
+User1 ->> Communication : GET_TRACK (UUID)
 activate Communication
 
-Communication -> Data : getOwner(TrackLite)
+Communication -> Data : getUser(UUID: trackId)
 activate Data
 
 Data --> Communication : UserLite | Exception
 deactivate Data
 
-Communication ->> User2 : requestAudioFile(UserLite, TrackLite)
+Communication ->> User2 : GET_TRACK (UUID)
 deactivate Communication
 activate User2
 
-User2 -->> Communication : Track | Exception
+User2 ->> Communication : DOWNLOAD_TRACK (Track)
 deactivate User2
 activate Communication
 
-Communication ->> User1 : saveAudioFile(Track)
+Communication ->> User1 : DOWNLOAD_TRACK (Track)
 deactivate Communication
 
 @enduml

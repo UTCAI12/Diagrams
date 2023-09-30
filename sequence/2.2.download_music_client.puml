@@ -1,42 +1,24 @@
 @startuml 2.2 User add a music to his local library from a distant file (client side)
-actor User
-box "Client side" #LightBlue
-    participant "IHM Music" as IHM
+actor Client
+box "Client App" #LightBlue
+    participant HMIMusic
     participant Data
     participant Communication
 end box
-actor Server
 
-User ->> IHM : Click on "Add to library"
-activate IHM
+actor Server 
 
-IHM -> Data : addToLibrary(TrackLite)
-activate Data
+Client ->> HMIMusic++: Click "add to library"
 
-Data -> Communication : download(TrackLite)
-activate Communication
-Communication ->> Server : download(TrackLite)
-activate Server
-Communication --> Data : void | Exception
-deactivate Communication
-
-Data --> IHM : void | Exception
-deactivate Data
-deactivate IHM
-
-Server ->> Communication : saveAudioFile(Track)
-deactivate Server
-activate Communication
-Communication -> Data : saveAudioFile(Track)
-activate Data
-
-Data -> IHM : updateDisplay()
-activate IHM
-IHM --> Data : void
-deactivate IHM
-
-Data --> Communication : void | Exception
+HMIMusic -> Data++: addTrackToLibrary(uuid : UUID)
+Data -> Communication++: downloadTrack(uuid : UUID)
+Communication ->> Server++: GET_TRACK (UUID)
+Communication --> Data: void | Exception
 deactivate Data
 deactivate Communication
+
+Server ->> Communication++: DOWNLOAD_TRACK (Track) 
+Communication -> Data++: updateTrack(track : Track)
+Data->>HMIMusic: TRACK_READY_DOWNLOAD (Track) 
 
 @enduml
