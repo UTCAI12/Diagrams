@@ -2,7 +2,7 @@
 actor NewClient
 
 box Client App #LightBlue
-    participant IHMMain as IHM
+    participant HMIMain as HMI
     participant Data
     participant Communication
 end box
@@ -11,37 +11,37 @@ actor Server
 
 opt Create new profile 
     alt Profile file exists
-        NewClient ->> IHM++: Click on "Import profile"
-        IHM -> Data++: importProfile(filePath: str)
+        NewClient ->> HMI++: Click on "Import profile"
+        HMI -> Data++: importProfile(filePath: str)
         return status: bool
-        deactivate IHM 
+        deactivate HMI 
     else Profile file doesn't exist
-        NewClient ->> IHM++: Click on "Create profile"
-        IHM -> Data++: createProfile(newClient: Client)
+        NewClient ->> HMI++: Click on "Create profile"
+        HMI -> Data++: createProfile(newClient: Client)
         return status: bool
-        deactivate IHM
+        deactivate HMI
     end
 end
 
 
 
-NewClient ->> IHM++: Click on "Login"
-IHM -> Data++: checkCredentials(user: str, pw: str)
+NewClient ->> HMI++: Click on "Login"
+HMI -> Data++: checkCredentials(user: str, pw: str)
 return valid : boolean
 
 opt credentials correct
-    IHM -> Communication++ : connect(User, List<Track>)
+    HMI -> Communication++ : connect(User, List<Track>)
     Communication->>Server: USER_CONNECT (User)
     return void | NetworkException
 end
 
-deactivate IHM
+deactivate HMI
 
 opt Credentials are correct
     Server ->> Communication++: USER_CONNECTED (List<UserLite>)
     deactivate Server
     Communication->Data++: setConnectedUsers(List<UserLite>)
-    Data->>IHM : NEW_USERS()
+    Data->>HMI : NEW_USERS()
     return void
     deactivate Communication
 end

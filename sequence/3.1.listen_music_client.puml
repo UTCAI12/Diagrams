@@ -1,23 +1,23 @@
 @startuml 3.1 User select a track to start listening (client)
 actor Client
 box "Client App" #LightBlue
-    participant IHMMusic
+    participant HMIMusic
     participant Data
     participant Communication
 end box
 
 actor Server 
 
-Client ->> IHMMusic++: Select a track
+Client ->> HMIMusic++: Select a track
 
 
 alt Track on the local database
-    IHMMusic -> Data++: downloadTrack(uuid : UUID)
-    Data->>IHMMusic: DOWNLOADED_TRACK (Track)
+    HMIMusic -> Data++: downloadTrack(uuid : UUID)
+    Data->>HMIMusic: DOWNLOADED_TRACK (Track)
     return void | Exception
 
 else Track not on the local database 
-    IHMMusic -> Data++: downloadTrack(uuid : UUID)
+    HMIMusic -> Data++: downloadTrack(uuid : UUID)
     Data -> Communication++: downloadTrack(uuid : UUID)
     Communication ->> Server++: GET_TRACK (UUID)
     Communication --> Data: void | Exception
@@ -26,7 +26,7 @@ else Track not on the local database
 
     Server ->> Communication++: DOWNLOAD_TRACK (Track) 
     Communication -> Data++: updateTrack(track : Track)
-    Data->>IHMMusic: DOWNLOADED_TRACK (Track) 
+    Data->>HMIMusic: DOWNLOADED_TRACK (Track) 
 end 
 
 @enduml

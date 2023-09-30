@@ -4,12 +4,12 @@ actor Server as server
 
 box "Client App" #LightBlue
     participant Communication as com
-    participant IHMMain as ihm
+    participant HMIMain as hmi
 end box
 
 server ->> com : SERVER_STOPPED ()
 
 activate com
-com ->> ihm : SERVER_STOPPED ()
+com ->> hmi : SERVER_STOPPED ()
 
 @enduml

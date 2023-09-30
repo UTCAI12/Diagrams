@@ -3,31 +3,31 @@
 actor Client as client
 
 box "Client App" #LightBlue
-    participant IHMMusic as ihm
+    participant HMIMusic as hmi
     participant Data as data
     participant Communication as com
 end box
 
 actor Server as server
 
-client ->> ihm++: Add Rating
+client ->> hmi++: Add Rating
 
-ihm -> data++ : getPlayedTrack()
+hmi -> data++ : getPlayedTrack()
 return track : Track
 
 
-ihm -> data++ : addRating(trackId : UUID, rating : Rating)
+hmi -> data++ : addRating(trackId : UUID, rating : Rating)
 alt track owned
     data->data++: saveTrackFile(trackId : UUID)
     return void | Exception
 end
 
-deactivate ihm
-data->>ihm++:  NEW_RATING (Rating) 
+deactivate hmi
+data->>hmi++:  NEW_RATING (Rating) 
 deactivate data 
 
 alt track not owned
-    ihm -> com++ : addRating(trackId : UUID, rating : Rating)
+    hmi -> com++ : addRating(trackId : UUID, rating : Rating)
     com ->> server : PUBLISH_RATING (Rating)
     return void | NetworkException
 end
