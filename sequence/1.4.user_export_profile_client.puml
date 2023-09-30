@@ -1,4 +1,5 @@
 @startuml 1.4 User export his profile to a file (client side)
+title 1.4 User export his profile to a file (client side)
 
 actor "User" as user
 box "Client App" #LightBlue

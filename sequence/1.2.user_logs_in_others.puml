@@ -1,4 +1,5 @@
 @startuml 1.2 User logs in (connected clients side)
+title 1.2 User logs in (connected clients side)
 
 actor "Server" as server
 box "Client application" #LightYellow

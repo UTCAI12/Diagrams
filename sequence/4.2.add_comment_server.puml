@@ -1,4 +1,5 @@
-@startuml 4.2. User add a comment to a music (server side)
+@startuml 4.2 User add a comment to a music (server side)
+title 4.2 User add a comment to a music (server side)
 
 actor Client as client
 

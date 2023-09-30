@@ -1,4 +1,5 @@
 @startuml 1.1 User starts the application (client side)
+title 1.1 User starts the application (client side)
 
 actor "User" as user
 box "Client App" #LightBlue

@@ -1,4 +1,6 @@
 @startuml 2.3 User edit the music file information (client side)
+title 2.3 User edit the music file information (client side)
+
 actor User
 box "Client application" #LightBlue
     participant "IHM Music" as IHM

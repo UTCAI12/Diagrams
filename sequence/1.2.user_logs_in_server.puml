@@ -1,4 +1,5 @@
 @startuml 1.2 User logs in (server side)
+title 1.2 User logs in (server side)
 
 actor "Client" as client
 box "Server App" #LightGreen

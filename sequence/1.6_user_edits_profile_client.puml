@@ -1,4 +1,5 @@
 @startuml 1.6 User edits his profile (client side)
+title 1.6 User edits his profile (client side)
 
 actor User as user
 box "Client application" #LightBlue

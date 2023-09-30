@@ -1,4 +1,5 @@
 @startuml 1.7 User disconnects (client side)
+title 1.7 User disconnects (client side)
 
 actor "User" as user
 box "Client App" #LightBlue

@@ -1,4 +1,5 @@
-@startuml Server is stopped (connected clients side)
+@startuml 5.2 Server is stopped (connected clients side)
+title 5.2 Server is stopped (connected clients side)
 
 actor Server as server
 

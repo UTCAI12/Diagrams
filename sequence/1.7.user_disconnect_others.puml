@@ -1,4 +1,5 @@
 @startuml 1.7 User disconnects (connected clients side)
+title 1.7 User disconnects (connected clients side)
 
 actor "Server" as server
 box "Client application" #LightYellow

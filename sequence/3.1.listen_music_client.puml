@@ -1,4 +1,6 @@
 @startuml 3.1 User select a track to start listening (client)
+title 3.1 User select a track to start listening (client)
+
 actor Client
 box "Client App" #LightBlue
     participant HMIMusic
@@ -26,7 +28,7 @@ else Track not on the local database
 
     Server ->> Communication++: DOWNLOAD_TRACK (Track) 
     Communication -> Data++: updateTrack(track : Track)
-    Data->>HMIMusic: TRACK_READY_PLAY (Track) 
+    Data->>HMIMusic: DOWNLOADED_TRACK (Track) 
 end 
 
 @enduml

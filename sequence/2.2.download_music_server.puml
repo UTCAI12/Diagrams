@@ -1,4 +1,6 @@
 @startuml 2.2 User add a music to his local library from a distant file (server side)
+title 2.2 User add a music to his local library from a distant file (server side)
+
 actor "User" as user
 box Server
     participant Communication

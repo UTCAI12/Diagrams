@@ -1,13 +1,12 @@
-@startuml 4.2. User add a comment to a music (sender client side)
+@startuml 4.2 User add a comment to a music (client side)
+title 4.2 User add a comment to a music (client side)
 
 actor Client as client
-
 box "Client App" #LightBlue
     participant HMIMusic as hmi
     participant Data as data
     participant Communication as com
 end box
-
 actor Server as server
 
 client ->> hmi++: Add Comment

@@ -1,4 +1,5 @@
 @startuml 1.7 User disconnects (server side)
+title 1.7 User disconnects (server side)
 
 actor "Client" as client
 box "Server App" #LightGreen

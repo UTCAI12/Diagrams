@@ -1,4 +1,6 @@
 @startuml 2.1 User add a music to his local library from a local file (client side)
+title 2.1 User add a music to his local library from a local file (client side)
+
 actor User
 box "Client" #LightBlue
     participant "IHM Music" as IHM

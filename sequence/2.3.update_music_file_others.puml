@@ -1,4 +1,6 @@
-@startuml  2.3 User edit the music file information (others side)
+@startuml 2.3 User edit the music file information (others side)
+title 2.3 User edit the music file information (others side)
+
 actor "Server" as server
 box "Client application" #LightBlue
     participant Communication as com

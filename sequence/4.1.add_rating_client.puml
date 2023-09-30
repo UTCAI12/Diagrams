@@ -1,4 +1,5 @@
-@startuml 4.1. User add a rating to a music (sender client side)
+@startuml 4.1 User add a rating to a music (client side)
+title 4.1 User add a rating to a music (client side)
 
 actor Client as client
 

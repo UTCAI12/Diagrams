@@ -1,4 +1,6 @@
-@startuml  2.3 User edit the music file information (server side)
+@startuml 2.3 User edit the music file information (server side)
+title 2.3 User edit the music file information (server side)
+
 actor "Client" as client
 box "Server Application"
     participant Communication as com

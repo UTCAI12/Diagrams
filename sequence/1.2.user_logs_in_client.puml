@@ -1,4 +1,6 @@
 @startuml 1.2 User logs in (client)
+title 1.2 User logs in (client)
+
 actor NewClient
 
 box Client App #LightBlue

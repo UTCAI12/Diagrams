@@ -1,4 +1,5 @@
 @startuml 4.1 User add a rating to a music (server side)
+title 4.1 User add a rating to a music (server side)
 
 actor Client as client
 
