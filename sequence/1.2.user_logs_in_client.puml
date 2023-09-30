@@ -1,0 +1,49 @@
+@startuml 1.2 User logs in (client)
+actor NewClient
+
+box Client App #LightBlue
+    participant IHMMain as IHM
+    participant Data
+    participant Communication
+end box
+
+actor Server 
+
+opt Create new profile 
+    alt Profile file exists
+        NewClient ->> IHM++: Click on "Import profile"
+        IHM -> Data++: importProfile(filePath: str)
+        return status: bool
+        deactivate IHM 
+    else Profile file doesn't exist
+        NewClient ->> IHM++: Click on "Create profile"
+        IHM -> Data++: createProfile(newClient: Client)
+        return status: bool
+        deactivate IHM
+    end
+end
+
+
+
+NewClient ->> IHM++: Click on "Login"
+IHM -> Data++: checkCredentials(user: str, pw: str)
+return valid : boolean
+
+opt credentials correct
+    IHM -> Communication++ : connect(User, List<Track>)
+    Communication->>Server: USER_CONNECT (User)
+    return void | NetworkException
+end
+
+deactivate IHM
+
+opt Credentials are correct
+    Server ->> Communication++: USER_CONNECTED (List<UserLite>)
+    deactivate Server
+    Communication->Data++: setConnectedUsers(List<UserLite>)
+    Data->>IHM : NEW_USERS()
+    return void
+    deactivate Communication
+end
+
+@enduml
