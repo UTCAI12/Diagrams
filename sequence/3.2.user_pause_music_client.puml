@@ -1,0 +1,18 @@
+@startuml 3.2 User pause a music (client side)
+
+actor Client as client
+box "Client App" #LightBlue
+    participant HMI as hmi
+    participant Data as data
+end box
+
+client ->> hmi : Click on pause Music
+activate hmi
+
+hmi -> data : pauseMusic()
+activate data
+return void | Exception
+deactivate data
+deactivate hmi
+
+@enduml
