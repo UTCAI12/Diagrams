@@ -8,4 +8,9 @@ box "Server App" #LightGreen
 end box
 actor "Connected Clients" as connected
 
+client ->> com++: USER_DISCONNECT(User)
+com -> data++: deleteUser(User)
+return void | Exception
+com ->> connected: DELETE_USER(UserLite)
+
 @enduml

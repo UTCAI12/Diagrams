@@ -8,4 +8,10 @@ box "Client application" #LightYellow
     participant "HMI" as hmi
 end box
 
+server ->> com++: DELETE_USER(UserLite)
+com -> data++: deleteUser(UserLite)
+data ->> hmi++: DELETE_USER(UserLite)
+deactivate hmi
+return void | Exception
+
 @enduml

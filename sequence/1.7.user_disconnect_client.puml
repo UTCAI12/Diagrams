@@ -9,4 +9,11 @@ box "Client App" #LightBlue
 end box
 actor "Server" as server
 
+user ->> hmi++: Click on "Logout"
+hmi -> com++: disconnect(User)
+hmi->data++: deleteAll()
+return void | Exception
+com ->> server: USER_DISCONNECT(User)
+return void | NetworkException
+
 @enduml
