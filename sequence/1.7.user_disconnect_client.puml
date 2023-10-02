@@ -3,10 +3,17 @@ title 1.7 User disconnects (client side)
 
 actor "User" as user
 box "Client App" #LightBlue
-    participant "HMI" as hmi
+    participant "HMIMain" as hmi
     participant "Data" as data
     participant "Communication" as com
 end box
 actor "Server" as server
+
+user ->> hmi++: Click on "Logout"
+hmi -> com++: disconnect(User)
+hmi->data++: deleteAll()
+return void | Exception
+com ->> server: USER_DISCONNECT(User)
+return void | NetworkException
 
 @enduml

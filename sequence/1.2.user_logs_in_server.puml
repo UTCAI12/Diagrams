@@ -8,4 +8,10 @@ box "Server App" #LightGreen
 end box
 actor "Connected Clients" as connected
 
+client->>com++: USER_CONNECT (User)
+com->data++: addUser (UserLite)
+return void | Exception
+com->>connected: USER_CONNECT (User)
+com->>client: USER_CONNECTED (List<UserLite>)
+
 @enduml

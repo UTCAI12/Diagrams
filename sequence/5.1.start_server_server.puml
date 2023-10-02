@@ -3,31 +3,31 @@ title 5.1 Server is started (server side)
 
 actor "Admin" as admin
 box "Server App" #LightGreen
-    participant "HMI" as hmi
+    participant "Main" as main
     participant "Communication" as com
     participant "Data" as data
 end box
 
-admin ->> hmi : Start server
-activate hmi
+admin ->> main : Start server
+activate main
 
 create com
-hmi -> com++ : new()
+main -> com++ : new()
 return object : Communication
 
 create data
-hmi -> data++ : new()
+main -> data++ : new()
 return object : Data
 
-hmi -> com++ : setData(data : Data)
+main -> com++ : setData(data : Data)
 return void
 
-hmi -> data++ : setCommunication(com : Communication)
+main -> data++ : setCommunication(com : Communication)
 return void
 
-hmi -> com++ : startServer(port : int)
+main -> com++ : startServer(port : int)
 return void | ServerOpenException
 
-deactivate hmi
+deactivate main
 
 @enduml

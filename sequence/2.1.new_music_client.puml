@@ -3,7 +3,7 @@ title 2.1 User add a music to his local library from a local file (client side)
 
 actor "User" as user
 box "Client App" #LightBlue
-    participant "HMI" as hmi
+    participant "HMIMusic" as hmi
     participant "Data" as data
 end box
 
@@ -12,6 +12,15 @@ activate hmi
 
 hmi -> data : save(Track)
 activate data
+
+note right
+    Si la musique est "publique", on 
+    peut déclencher la séquence du 
+    diagramme 2.3 avec le message 
+    "PUBLISH_TRACK (TrackLite)" 
+    pour que le serveur la propage 
+    aux autres clients.
+end note
 
 data --> hmi : void | Exception
 deactivate data

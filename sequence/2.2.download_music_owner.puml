@@ -1,17 +1,17 @@
 @startuml 2.2 User add a music to his local library from a distant file (owner client side)
 title 2.2 User add a music to his local library from a distant file (owner client side)
 
-actor "Server" as Server
+actor "Server" as server
 box "Client App" #LightGray
     participant "Communication" as com
     participant "Data" as data
 end box
 
 
-Server ->> com++: GET_TRACK (UUID)
+server ->> com++: GET_TRACK (UUID)
 com->data++: getTrack(uuid : UUID)
 return Track
-com->>Server: DOWNLOAD_TRACK (Track) 
+com->>server: DOWNLOAD_TRACK (Track) 
 
 
 @enduml

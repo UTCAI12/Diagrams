@@ -1,10 +1,15 @@
 @startuml 3.1 User select a track to start listening (owner client side)
 title 3.1 User select a track to start listening (owner client side)
 
-actor "Server" as Server
+actor "Server" as server
 box "Client App" #LightGray
     participant "Communication" as com
     participant "Data" as data
 end box
+
+server ->> com++: GET_TRACK (UUID)
+com->data++: getTrack(uuid : UUID)
+return Track
+com->>server: DOWNLOAD_TRACK (Track) 
 
 @enduml

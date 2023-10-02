@@ -5,7 +5,13 @@ actor "Server" as server
 box "Client application" #LightYellow
     participant "Communication" as com
     participant "Data" as data
-    participant "HMI" as hmi
+    participant "HMIMain" as hmi
 end box
+
+server ->> com++: DELETE_USER(UserLite)
+com -> data++: deleteUser(UserLite)
+data ->> hmi++: DELETE_USER(UserLite)
+deactivate hmi
+return void | Exception
 
 @enduml

@@ -50,6 +50,10 @@
 -   NEW_COMMENT (Comment) : Emitted when a new comment is added (or published by an other user)
 -   NEW_RATING (Rating) : Emitted when a new rating is added (or published by an other user)
 
+### General
+
+-   REMOVE_ALL () : Emitted when all data are removed (typically when the server is stopped)
+
 ## Event types emitted by the controller
 
 ### Server

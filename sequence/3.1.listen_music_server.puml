@@ -6,6 +6,26 @@ box "Server App" #LightGreen
     participant "Communication" as com
     participant "Data" as data
 end box
-actor "Connected Clients" as connected
+actor "Owner" as owner
+
+client ->> com : GET_TRACK (UUID)
+activate com
+
+com -> data : getUser(UUID: trackId)
+activate data
+
+data --> com : UserLite | Exception
+deactivate data
+
+com ->> owner : GET_TRACK (UUID)
+deactivate com
+activate owner
+
+owner ->> com : DOWNLOAD_TRACK (Track)
+deactivate owner
+activate com
+
+com ->> client : DOWNLOAD_TRACK (Track)
+deactivate com
 
 @enduml

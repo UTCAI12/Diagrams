@@ -3,7 +3,7 @@ title 4.1 User add a rating to a music (user side)
 
 actor "User" as user
 box "Client App" #LightBlue
-    participant "HMI" as hmi
+    participant "HMIMusic" as hmi
     participant "Data" as data
     participant "Communication" as com
 end box
