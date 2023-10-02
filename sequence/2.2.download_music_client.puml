@@ -1,26 +1,33 @@
 @startuml 2.2 User add a music to his local library from a distant file (client side)
 title 2.2 User add a music to his local library from a distant file (client side)
 
-actor Client
+actor "Client" as client
 box "Client App" #LightBlue
-    participant HMI
-    participant Data
-    participant Communication
+    participant "HMI" as hmi
+    participant "Data" as data
+    participant "Communication" as com
 end box
 
-actor Server 
+actor "Server" as server
 
-Client ->> HMI++: Click "add to library"
+client ->> hmi++: Click "add to library"
 
-HMI -> Data++: addTrackToLibrary(uuid : UUID)
-Data -> Communication++: downloadTrack(uuid : UUID)
-Communication ->> Server++: GET_TRACK (UUID)
-Communication --> Data: void | Exception
-deactivate Data
-deactivate Communication
+hmi->data++: addTrackToLibrary(UUID)
+return void | Exception
+hmi -> com++: downloadTrack(UUID)
+com ->> server: GET_TRACK (UUID)
+return void | Exception
+deactivate hmi
 
-Server ->> Communication++: DOWNLOAD_TRACK (Track) 
-Communication -> Data++: updateTrack(track : Track)
-Data->>HMI: TRACK_READY_DOWNLOAD (Track) 
+server ->> com++: DOWNLOAD_TRACK (Track) 
+com -> data++: updateTrack(Track)
+data->>hmi++: TRACK_READY_DOWNLOAD (Track) 
+note left of data
+    If the track uuid have been added to the library,
+    with the method "addTrackToLibrary(UUID)",
+    the models emits a TRACK_READY_DOWNLOAD event
+    otherwise, the model emits a TRACK_READY_PLAY event
+endnote 
+data-->com: void | Exception
 
 @enduml

@@ -8,9 +8,9 @@ box "Client application" #LightYellow
     participant "HMI" as hmi
 end box
 
-server ->> com++: USER_UPDATE (User)
-com->data++: updateUser(User)
-data->>hmi++:UPDATE_USER(User)
+server ->> com++: USER_UPDATE (UserLite)
+com->data++: updateUser(UserLite)
+data->>hmi++:UPDATE_USER(UserLite)
 deactivate hmi
 return void | Exception
 @enduml

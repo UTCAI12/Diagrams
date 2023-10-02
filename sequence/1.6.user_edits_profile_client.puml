@@ -14,6 +14,7 @@ hmi->data++: editUser(User)
 data->>hmi++: UPDATE_USER(User)
 hmi->com++: editUser(User)
 com->>server: USER_UPDATE (User)
+com-->hmi: void | Exception
 deactivate hmi
 deactivate com
 return void | Exception

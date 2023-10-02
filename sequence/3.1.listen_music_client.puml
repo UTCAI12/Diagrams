@@ -9,25 +9,25 @@ box "Client App" #LightBlue
 end box
 actor "Server" as server
 
-user ->> hmi++: Select a track
-
-
 alt Track on the local database
+    user ->> hmi++: Click "listen"
     hmi -> data++: downloadTrack(uuid : UUID)
     data->>hmi: DOWNLOADED_TRACK (Track)
     return void | Exception
+    deactivate hmi
 
 else Track not on the local database 
-    hmi -> data++: downloadTrack(uuid : UUID)
-    data -> com++: downloadTrack(uuid : UUID)
-    com ->> server++: GET_TRACK (UUID)
-    com --> data: void | Exception
-    deactivate data
-    deactivate com
+    user ->> hmi++: Click "listen"
+
+    hmi -> com++: downloadTrack(UUID)
+    com ->> server: GET_TRACK (UUID)
+    return void | Exception
+    deactivate hmi
 
     server ->> com++: DOWNLOAD_TRACK (Track) 
-    com -> data++: updateTrack(track : Track)
-    data->>hmi: DOWNLOADED_TRACK (Track) 
+    com -> data++: updateTrack(Track)
+    data->>hmi++: TRACK_READY_PLAY (Track) 
+    data-->com: void | Exception
 end 
 
 @enduml
