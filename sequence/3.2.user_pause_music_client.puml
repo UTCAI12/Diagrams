@@ -3,7 +3,7 @@ title 3.2 User pause a music (user side)
 
 actor "User" as user
 box "Client App" #LightBlue
-    participant "HMI" as hmi
+    participant "HMIMusic" as hmi
 end box
 
 user ->> hmi++: Click on pause Music

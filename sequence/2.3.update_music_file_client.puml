@@ -3,7 +3,7 @@ title 2.3 user edit the music file information (client side)
 
 actor "User" as user
 box "Client App" #LightBlue
-    participant "HMI" as hmi
+    participant "HMIMusic" as hmi
     participant "Data" as data
     participant "Communication" as com
 end box

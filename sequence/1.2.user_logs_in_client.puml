@@ -3,7 +3,7 @@ title 1.2 User logs in (client)
 
 actor "User" as user
 box "Client App" #LightBlue
-    participant "HMI" as hmi
+    participant "HMIMain" as hmi
     participant "Data" as data
     participant "Communication" as com
 end box

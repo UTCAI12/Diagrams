@@ -5,7 +5,7 @@ actor "Server" as server
 box "Client application" #LightYellow
     participant "Communication" as com
     participant "Data" as data
-    participant "HMI" as hmi
+    participant "HMIMusic" as hmi
 end box
 
 opt 

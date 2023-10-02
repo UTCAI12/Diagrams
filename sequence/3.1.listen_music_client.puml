@@ -3,7 +3,7 @@ title 3.1 User select a track to start listening (client)
 
 actor "User" as user
 box "Client App" #LightBlue
-    participant "HMI" as hmi
+    participant "HMIMusic" as hmi
     participant "Data" as data
     participant "Communication" as com
 end box

@@ -3,7 +3,7 @@ title 2.2 User add a music to his local library from a distant file (client side
 
 actor "Client" as client
 box "Client App" #LightBlue
-    participant "HMI" as hmi
+    participant "HMIMusic" as hmi
     participant "Data" as data
     participant "Communication" as com
 end box
