@@ -1,5 +1,5 @@
-@startuml 1.2 User logs in (client)
-title 1.2 User logs in (client)
+@startuml 1.2 User logs in (client side)
+title 1.2 User logs in (client side)
 
 actor "User" as user
 box "Client App" #LightBlue
