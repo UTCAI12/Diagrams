@@ -1,0 +1,41 @@
+@startuml
+class ServerCommunication {
+  String name
+  InetAddress ip
+  short port
+  ServerSocket server
+  HashMap<String, Socket> clients
+  List<Thread> handlers
+}
+
+class ServerMessageHandler {
+  Socket socket
+  DataInputStream input
+  DataOutputStream output
+  ServerCommunication server
+
+}
+
+class ClientCommunication {
+  Socket socket
+  ClientMessageListener listener
+  ClientMessageWriter writer
+}
+
+class ClientMessageListener {
+  Socket socket
+  DataInputStream input
+  ClientCommunication client
+}
+
+class ClientMessageWriter {
+  Socket socket
+  DataOutputStream output
+  ClientCommunication client
+}
+
+ServerCommunication *-- "*" ServerMessageHandler
+
+ClientCommunication *-- "0..1" ClientMessageListener
+ClientCommunication *-- "0..1" ClientMessageWriter
+@enduml
