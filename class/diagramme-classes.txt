@@ -1,0 +1,94 @@
+@startuml
+title Diagramme de classes module Communication
+
+class ServerCommunicationController {
+  ServerCommunication server
+}
+
+class RecordCommunication {
+  ServerCommunication server
+  Socket client
+  Thread listener
+  Thread writer
+}
+
+class ServerCommunication {
+  ServerSocket server
+  ComViewServices iData
+  Map<UserLite, RecordCommunication> clients
+}
+
+class ServerMessageListener {
+  Socket socket
+  ObjectInputStream input
+  ObjectOutputStream output
+  ServerCommunication server
+}
+
+class ServerMessageWriter {
+  Socket socket
+  ObjectOutputStream output
+  ServerCommunication server
+}
+
+class ClientCommunicationController {
+  ClientCommunication c
+  IHMMainCallsCommImp iIHMMain
+  IHMMusicCallsCommImp iIHMMusic
+}
+
+class ClientCommunication {
+  Socket socket
+  ClientMessageListener listener
+  ClientMessageWriter writer
+}
+
+class ClientMessageListener {
+  Socket socket
+  ObjectInputStream input
+  ObjectOutputStream output
+  ClientCommunication client
+}
+
+class ClientMessageWriter {
+  Socket socket
+  ObjectOutputStream output
+  ClientCommunication client
+}
+
+
+interface MainViewServices {
+  connect(User, List<Track>)
+  editUser(User)
+  disconnect(User)
+}
+
+interface MusicViewServices {
+  downloadTrack(UUID)
+  updateTrack(UUID)
+  publishTrack(UUID)
+  unpublishTrack(UUID)
+  addRating(UUID, Rating)
+  addComment(UUID, Comment)
+}
+
+class MainViewServicesImp implements MainViewServices {
+
+}
+
+class MusicViewServicesImp implements MusicViewServices {
+
+}
+
+ServerCommunicationController o-- ServerCommunication
+RecordCommunication o-- "*" ServerMessageWriter
+RecordCommunication o-- "*" ServerMessageListener
+ServerCommunication o-- "*" RecordCommunication
+
+ClientCommunicationController o-- ClientCommunication
+ClientCommunicationController o-- MainViewServicesImp
+ClientCommunicationController o-- MusicViewServicesImp
+ClientCommunication o-- "0..1" ClientMessageListener
+ClientCommunication o-- "0..1" ClientMessageWriter
+@enduml
+
