@@ -1,4 +1,4 @@
-@startuml Communication module class diagram
+@startuml
 title Communication module class diagram
 
 package server {
@@ -46,13 +46,20 @@ package client {
         ~ void ...()
     }
 
-
-    class ServerSocketManager {
-        ~ void onMessage(SocketMessage)
+    interface IhmMainCallsCom {
+        + new(): Communication
+        + connect(User, List<Track>) : Void | NetworkException
+        + editUser() : Void | Exception
+        + disconnect() : Void | NetworkException
     }
 
-    interface CommunicationManager {
-        + void connect(UserLite)
+    interface MusicViewServices {
+        + downloadTrack(UUID) : void | Exception
+        + updateTrack(UUID) : void | Exception
+        + publishTrack(UUID) : void | Exception
+        + unpublishTrack(UUID) : void | Exception
+        + addRating(UUID, Rating) : void | NetworkException
+        + addComment(UUID, Comment) : void | NetworkException
     }
 
     class ClientSocketManager {
@@ -64,8 +71,8 @@ package client {
     }
 
     ClientSocketManager "1" -up- "1" ClientCommunicationController
-    CommunicationManager <|-left- ClientCommunicationController
+    IhmMainCallsCom <|-left- ClientCommunicationController
+    MusicViewServices <|-left- ClientCommunicationController
     ClientCommunicationController "-clientRequestHandler" o-- "    1" ClientRequestHandler
 }
-
 @enduml
