@@ -1,35 +1,46 @@
-@startuml
-title Diagramme de classes module Communication
+@startuml Communication module class diagram
+title Communication module class diagram
 
-class ServerCommunicationController {
-  ServerCommunication server
+package server {
+  class ServerCommunicationController {
+    Model model
+    void onMessage(SocketMessage, ClientHandler)
+  }
+
+  class ClientHandler {
+    Socket socket
+    ObjectInputStream input
+    ObjectOutputStream output
+  }
+
+  class RequestHandler {
+    void sendAllExclude(SocketMessage, UUID)
+
+    void userConnect(SocketMessage, UserLite, ClientHandler)
+    void userDisconnect(SocketMessage, UserLite, ClientHandler)
+    void userEdit(SocketMessage, UserLite, ClientHandler)
+    void publishTrack(SocketMessage, TrackLite, ClientHandler)
+    void ...()
+  }
+
+
 }
 
-class RecordCommunication {
-  ServerCommunication server
-  Socket client
-  Thread listener
-  Thread writer
+package client {
+  class ClientCommunicationController
+  class ClientCommunication
+  class ClientMessageListener
+  class ClientMessageWriter
+  class MainViewServicesImp
+  class MusicViewServicesImp
+  interface MainViewServices
+  interface MusicViewServices
 }
 
-class ServerCommunication {
-  ServerSocket server
-  ComViewServices iData
-  Map<UserLite, RecordCommunication> clients
-}
 
-class ServerMessageListener {
-  Socket socket
-  ObjectInputStream input
-  ObjectOutputStream output
-  ServerCommunication server
-}
 
-class ServerMessageWriter {
-  Socket socket
-  ObjectOutputStream output
-  ServerCommunication server
-}
+
+
 
 class ClientCommunicationController {
   ClientCommunication c
@@ -80,10 +91,9 @@ class MusicViewServicesImp implements MusicViewServices {
 
 }
 
-ServerCommunicationController o-- ServerCommunication
-RecordCommunication o-- "*" ServerMessageWriter
-RecordCommunication o-- "*" ServerMessageListener
-ServerCommunication o-- "*" RecordCommunication
+ServerCommunicationController "1" -- "0..*" ClientHandler
+ServerCommunicationController "-requestHandler" o-- "  1" RequestHandler
+RequestHandler "0..*" <-right- "-users" ClientHandler
 
 ClientCommunicationController o-- ClientCommunication
 ClientCommunicationController o-- MainViewServicesImp
