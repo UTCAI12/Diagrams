@@ -1,0 +1,96 @@
+@startuml Music HMI module class diagram
+title Music HMI module class diagram
+
+interface IMainCallsMusic {
+    + openSearchTracks(Pane)
+    + openCreateTrack(Window)
+    + openEditTrack(Window, UUID)
+    + openDeleteTrack(Window, UUID)
+    + openMediaPlayer(Pane, UUID)
+}
+
+class MainCallsMusic {
+    - musicCore: MusicCore
+}
+
+class MusicCore {
+    - musicCallsData: IMusicCallsData
+    - musicCallsCommunication: IMusicCallsCommunication
+    + getMainCallsMusic(): IMainCallsMusic
+    + setMusicCallsData(IMusicCallsData)
+    + setMusicCallsCommunication(IMusicCallsCommunication)
+}
+
+class SearchController {
+    - musicCore: MusicCore
+    - searchResult: List<TrackLite>
+    - filterByTitle(String)
+    - filterByArtist(String)
+    - filterByAlbum(String)
+}
+
+class SearchView {
+
+}
+
+class MediaPlayerController {
+    - musicCore: MusicCore
+    - mediaPlayer: MediaPlayer
+    - play()
+    - pause()
+    - download()
+    - closeMediaPlayer()
+}
+
+class MediaPlayerView {
+
+}
+
+class TrackController {
+    - musicCore: MusicCore
+    - track: Track
+    - closeCreatePopup()
+    - closeEditPopup()
+    - closeDeletePopup()
+}
+
+class TrackView {
+
+}
+
+' class PropertyChangeListener {
+
+' }
+' note top of PropertyChangeListener: Classe responsable de mettre en place les\nréactions aux événements du module Data.
+
+' class PLCTrackList {
+'     + onNewTracks()
+'     + onTrackDeleted(Track)
+'     + onTrackUpdated(Track)
+' }
+
+' class PLCTrack {
+'     + onNewTrack(Track)
+'     + onTrackUpdated(Track)
+'     + onTrackDownloaded(Track)
+'     + onTrackReadyToPlay(Track)
+'     + onNewComment(Comment)
+'     + onNewRating(Rating)
+' }
+
+' PropertyChangeListener <|-- PLCTrackList
+' PropertyChangeListener <|-- PLCTrack
+
+IMainCallsMusic <|-- MainCallsMusic
+
+MusicCore *-- "1" MainCallsMusic
+
+MusicCore *-- "0..1" SearchController
+MusicCore *-- "0..1" MediaPlayerController
+MusicCore *-- "0..1" TrackController
+
+SearchController *-- SearchView
+MediaPlayerController *-- MediaPlayerView
+TrackController *-- TrackView
+
+@enduml
