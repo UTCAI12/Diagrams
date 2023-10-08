@@ -2,103 +2,70 @@
 title Communication module class diagram
 
 package server {
-  class ServerCommunicationController {
-    Model model
-    void onMessage(SocketMessage, ClientHandler)
-  }
+    class ServerCommunicationController {
+        - Model model
+        void onMessage(SocketMessage, ServerSocketManager)
+    }
 
-  class ClientHandler {
-    Socket socket
-    ObjectInputStream input
-    ObjectOutputStream output
-  }
+    class ServerSocketManager {
+        - Socket socket
+        - ObjectInputStream input
+        - ObjectOutputStream output
 
-  class RequestHandler {
-    void sendAllExclude(SocketMessage, UUID)
+        + void send(SocketMessage)
+    }
 
-    void userConnect(SocketMessage, UserLite, ClientHandler)
-    void userDisconnect(SocketMessage, UserLite, ClientHandler)
-    void userEdit(SocketMessage, UserLite, ClientHandler)
-    void publishTrack(SocketMessage, TrackLite, ClientHandler)
-    void ...()
-  }
+    class ServerRequestHandler {
+        void sendAllExclude(SocketMessage, UUID)
 
+        void userConnect(SocketMessage, UserLite, ServerSocketManager)
+        void userDisconnect(SocketMessage, UserLite, ServerSocketManager)
+        void userEdit(SocketMessage, UserLite, ServerSocketManager)
+        void publishTrack(SocketMessage, TrackLite, ServerSocketManager)
+        void ...()
+    }
+
+    ServerCommunicationController "1" -- "0..*" ServerSocketManager
+    ServerCommunicationController "-serverRequestHandler" o-- "    1" ServerRequestHandler
 
 }
 
 package client {
-  class ClientCommunicationController
-  class ClientCommunication
-  class ClientMessageListener
-  class ClientMessageWriter
-  class MainViewServicesImp
-  class MusicViewServicesImp
-  interface MainViewServices
-  interface MusicViewServices
+    class ClientCommunicationController {
+        Model model
+
+        void connect(UserLite)
+        void onMessage(SocketMessage)
+    } 
+
+    class ClientRequestHandler {
+        void userConnect(SocketMessage)
+        void userDisconnect(SocketMessage)
+        void userEdit(SocketMessage)
+        void publishTrack(SocketMessage)
+        void ...()
+    }
+
+
+    class ServerSocketManager {
+        void onMessage(SocketMessage)
+    }
+
+    interface CommunicationManager {
+        void connect(UserLite)
+    }
+
+    class ClientSocketManager {
+        Socket socket
+        ObjectInputStream input
+        ObjectOutputStream output
+
+        void send(SocketMessage)
+    }
+
+    ClientSocketManager "1" -up- "1" ClientCommunicationController
+    CommunicationManager <|-left- ClientCommunicationController
+    ClientCommunicationController "-clientRequestHandler" o-- "    1" ClientRequestHandler
 }
 
-
-
-
-
-
-class ClientCommunicationController {
-  ClientCommunication c
-  IHMMainCallsCommImp iIHMMain
-  IHMMusicCallsCommImp iIHMMusic
-}
-
-class ClientCommunication {
-  Socket socket
-  ClientMessageListener listener
-  ClientMessageWriter writer
-}
-
-class ClientMessageListener {
-  Socket socket
-  ObjectInputStream input
-  ObjectOutputStream output
-  ClientCommunication client
-}
-
-class ClientMessageWriter {
-  Socket socket
-  ObjectOutputStream output
-  ClientCommunication client
-}
-
-
-interface MainViewServices {
-  connect(User, List<Track>)
-  editUser(User)
-  disconnect(User)
-}
-
-interface MusicViewServices {
-  downloadTrack(UUID)
-  updateTrack(UUID)
-  publishTrack(UUID)
-  unpublishTrack(UUID)
-  addRating(UUID, Rating)
-  addComment(UUID, Comment)
-}
-
-class MainViewServicesImp implements MainViewServices {
-
-}
-
-class MusicViewServicesImp implements MusicViewServices {
-
-}
-
-ServerCommunicationController "1" -- "0..*" ClientHandler
-ServerCommunicationController "-requestHandler" o-- "  1" RequestHandler
-RequestHandler "0..*" <-right- "-users" ClientHandler
-
-ClientCommunicationController o-- ClientCommunication
-ClientCommunicationController o-- MainViewServicesImp
-ClientCommunicationController o-- MusicViewServicesImp
-ClientCommunication o-- "0..1" ClientMessageListener
-ClientCommunication o-- "0..1" ClientMessageWriter
 @enduml
-
