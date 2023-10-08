@@ -4,7 +4,7 @@ title Communication module class diagram
 package server {
     class ServerCommunicationController {
         - Model model
-        void onMessage(SocketMessage, ServerSocketManager)
+        + void onMessage(SocketMessage, ServerSocketManager)
     }
 
     class ServerSocketManager {
@@ -16,13 +16,13 @@ package server {
     }
 
     class ServerRequestHandler {
-        void sendAllExclude(SocketMessage, UUID)
+        - void sendAllExclude(SocketMessage, UUID)
 
-        void userConnect(SocketMessage, UserLite, ServerSocketManager)
-        void userDisconnect(SocketMessage, UserLite, ServerSocketManager)
-        void userEdit(SocketMessage, UserLite, ServerSocketManager)
-        void publishTrack(SocketMessage, TrackLite, ServerSocketManager)
-        void ...()
+        ~ void userConnect(SocketMessage, UserLite, ServerSocketManager)
+        ~ void userDisconnect(SocketMessage, UserLite, ServerSocketManager)
+        ~ void userEdit(SocketMessage, UserLite, ServerSocketManager)
+        ~ void publishTrack(SocketMessage, TrackLite, ServerSocketManager)
+        ~ void ...()
     }
 
     ServerCommunicationController "1" -- "0..*" ServerSocketManager
@@ -32,35 +32,35 @@ package server {
 
 package client {
     class ClientCommunicationController {
-        Model model
+        - Model model
 
-        void connect(UserLite)
-        void onMessage(SocketMessage)
+        ~ void connect(UserLite)
+        ~ void onMessage(SocketMessage)
     } 
 
     class ClientRequestHandler {
-        void userConnect(SocketMessage)
-        void userDisconnect(SocketMessage)
-        void userEdit(SocketMessage)
-        void publishTrack(SocketMessage)
-        void ...()
+        ~ void userConnect(SocketMessage)
+        ~ void userDisconnect(SocketMessage)
+        ~ void userEdit(SocketMessage)
+        ~ void publishTrack(SocketMessage)
+        ~ void ...()
     }
 
 
     class ServerSocketManager {
-        void onMessage(SocketMessage)
+        ~ void onMessage(SocketMessage)
     }
 
     interface CommunicationManager {
-        void connect(UserLite)
+        + void connect(UserLite)
     }
 
     class ClientSocketManager {
-        Socket socket
-        ObjectInputStream input
-        ObjectOutputStream output
+        - Socket socket
+        - ObjectInputStream input
+        - ObjectOutputStream output
 
-        void send(SocketMessage)
+        ~ void send(SocketMessage)
     }
 
     ClientSocketManager "1" -up- "1" ClientCommunicationController
