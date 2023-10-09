@@ -1,7 +1,7 @@
 @startuml Music HMI module class diagram
 title Music HMI module class diagram
 
-interface IMainCallsMusic {
+interface ViewMusicServices  {
     + openSearchTracks(Pane)
     + openCreateTrack(Window)
     + openEditTrack(Window, UUID)
@@ -16,7 +16,7 @@ class MainCallsMusic {
 class MusicCore {
     - musicCallsData: IMusicCallsData
     - musicCallsCommunication: IMusicCallsCommunication
-    + getMainCallsMusic(): IMainCallsMusic
+    + getMainCallsMusic(): ViewMusicServices 
     + setMusicCallsData(IMusicCallsData)
     + setMusicCallsCommunication(IMusicCallsCommunication)
 }
@@ -81,7 +81,7 @@ class TrackView {
 ' PropertyChangeListener <|-- PLCTrackList
 ' PropertyChangeListener <|-- PLCTrack
 
-IMainCallsMusic <|-- MainCallsMusic
+ViewMusicServices  <|-- MainCallsMusic
 
 MusicCore *-- "1" MainCallsMusic
 
