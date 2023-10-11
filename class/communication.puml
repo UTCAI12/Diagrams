@@ -47,18 +47,18 @@ package client {
     }
 
     interface ComMainServices  {
-        + connect(User, List<Track>) : Void | NetworkException
-        + editUser() : Void | Exception
+        + connect(UserLite, List<Track>) : Void | NetworkException
+        + editUser(UserLite) : Void | Exception
         + disconnect() : Void | NetworkException
     }
 
     interface ComMusicServices {
         + downloadTrack(UUID) : void | Exception
-        + updateTrack(UUID) : void | Exception
-        + publishTrack(UUID) : void | Exception
-        + unpublishTrack(UUID) : void | Exception
-        + addRating(UUID, Rating) : void | NetworkException
-        + addComment(UUID, Comment) : void | NetworkException
+        + updateTrack(TrackLite) : void | Exception
+        + publishTrack(TrackLite) : void | Exception
+        + unpublishTrack(TrackLite) : void | Exception
+        + addRating(UUID, Rating) : void | Exception
+        + addComment(UUID, Comment) : void | Exception
     }
 
     class ClientSocketManager {

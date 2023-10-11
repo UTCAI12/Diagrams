@@ -2,11 +2,11 @@
 title Music HMI module class diagram
 
 interface ViewMusicServices  {
-    + openSearchTracks(Pane)
-    + openCreateTrack(Window)
-    + openEditTrack(Window, UUID)
-    + openDeleteTrack(Window, UUID)
-    + openMediaPlayer(Pane, UUID)
+    + openSearchTracks(Pane): void | Exception
+    + openCreateTrack(Window): void | Exception
+    + openEditTrack(Window, UUID): void | Exception
+    + openDeleteTrack(Window, UUID): void | Exception
+    + openMediaPlayer(Pane, UUID): void | Exception
 }
 
 class MainCallsMusic {
