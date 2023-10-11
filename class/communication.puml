@@ -31,7 +31,7 @@ package server {
 }
 
 package client {
-    class ClientCommunicationController implements ComMusicServices, ComMainServices  {
+    class ClientCommunicationController {
         - Model model
 
         ~ void connect(UserLite)
@@ -61,6 +61,12 @@ package client {
         + addComment(UUID, Comment) : void | Exception
     }
 
+    class ComMainServicesImpl implements ComMainServices {
+    }
+
+    class ComMusicServicesImpl implements ComMusicServices {
+    }
+
     class ClientSocketManager {
         - Socket socket
         - ObjectInputStream input
@@ -70,6 +76,9 @@ package client {
     }
 
     ClientSocketManager "1" -up- "1" ClientCommunicationController
-    ClientCommunicationController "-clientRequestHandler" o-- "    1" ClientRequestHandler
+    ClientCommunicationController "-clientRequestHandler" o-- "1" ClientRequestHandler
+    ComMainServicesImpl "1" --o ClientCommunicationController
+    ComMusicServicesImpl "1" --o ClientCommunicationController
+    
 }
 @enduml
