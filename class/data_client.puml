@@ -3,12 +3,12 @@ title Data client class diagram
 
     interface DataUserServices {
         importProfile(filePath: str): User | Exception
-        createProfile(newClient: Client): void | Exception
-        checkCredentials(user: str, pw:str): bool | Exception
-        exportProfile(filePath: str): void | Exception
+        createProfile(newClient: User): void | Exception
+        checkCredentials(user: str, pw:str): boolean | Exception
+        exportProfile(User, filePath: str): void | Exception
         addUser(UserLite): void | Exception
         deleteUser(UserLite): void | Exception
-        updateTrack(Track) : void | Exception
+        updateUser(User): void | Exception
         deleteAllUsers(): void
     }
 

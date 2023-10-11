@@ -11,7 +11,7 @@ title Data server class diagram
 
     interface DataTrackServices {
         updateTrack(TrackLite) : void | Exception
-        getTrack(UUID) : TrackLite | Exception
+        getTrack(UUID) : Track | Exception
         removeAllTracks(UserUUID) : void | Exception
     }
 
