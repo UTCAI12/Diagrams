@@ -23,7 +23,7 @@ title Data server class diagram
 
     }
 
-    class ServerController{
+    class ServerController {
         dataRepository : DataRepository
         dataUserServicesImpl : DataUserServicesImpl
         dataTrackServicesImpl : DataTrackServicesImpl

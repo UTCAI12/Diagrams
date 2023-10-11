@@ -31,7 +31,7 @@ package server {
 }
 
 package client {
-    class ClientCommunicationController {
+    class ClientCommunicationController implements ComMusicServices, ComMainServices  {
         - Model model
 
         ~ void connect(UserLite)
@@ -70,8 +70,6 @@ package client {
     }
 
     ClientSocketManager "1" -up- "1" ClientCommunicationController
-    ComMainServices  <|-left- ClientCommunicationController
-    ComMusicServices <|-right- ClientCommunicationController
     ClientCommunicationController "-clientRequestHandler" o-- "    1" ClientRequestHandler
 }
 @enduml

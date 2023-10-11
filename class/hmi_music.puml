@@ -9,7 +9,7 @@ interface ViewMusicServices  {
     + openMediaPlayer(Pane, UUID): void | Exception
 }
 
-class MainCallsMusic {
+class MainCallsMusic implements ViewMusicServices {
     - musicCore: MusicCore
 }
 
@@ -57,31 +57,6 @@ class TrackController {
 class TrackView {
 
 }
-
-' class PropertyChangeListener {
-
-' }
-' note top of PropertyChangeListener: Classe responsable de mettre en place les\nréactions aux événements du module Data.
-
-' class PLCTrackList {
-'     + onNewTracks()
-'     + onTrackDeleted(Track)
-'     + onTrackUpdated(Track)
-' }
-
-' class PLCTrack {
-'     + onNewTrack(Track)
-'     + onTrackUpdated(Track)
-'     + onTrackDownloaded(Track)
-'     + onTrackReadyToPlay(Track)
-'     + onNewComment(Comment)
-'     + onNewRating(Rating)
-' }
-
-' PropertyChangeListener <|-- PLCTrackList
-' PropertyChangeListener <|-- PLCTrack
-
-ViewMusicServices  <|-- MainCallsMusic
 
 MusicCore *-- "1" MainCallsMusic
 
