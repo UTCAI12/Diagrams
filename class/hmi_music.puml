@@ -9,14 +9,14 @@ interface ViewMusicServices  {
     + openMediaPlayer(Pane, UUID): void | Exception
 }
 
-class MainCallsMusic implements ViewMusicServices {
+class ViewMusicServicesImpl implements ViewMusicServices {
     - musicCore: MusicCore
 }
 
 class MusicCore {
     - musicCallsData: IMusicCallsData
     - musicCallsCommunication: IMusicCallsCommunication
-    + getMainCallsMusic(): ViewMusicServices 
+    + getViewMusicServicesImpl(): ViewMusicServices 
     + setMusicCallsData(IMusicCallsData)
     + setMusicCallsCommunication(IMusicCallsCommunication)
 }
@@ -58,7 +58,7 @@ class TrackView {
 
 }
 
-MusicCore *-- "1" MainCallsMusic
+MusicCore *-- "1" ViewMusicServicesImpl
 
 MusicCore *-- "0..1" SearchController
 MusicCore *-- "0..1" MediaPlayerController
