@@ -10,7 +10,7 @@ end box
 user ->> hmi : Adding a track to the local library
 activate hmi
 
-hmi -> data : save(Track)
+hmi -> data : saveTrack(Track)
 activate data
 
 note right

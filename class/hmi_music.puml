@@ -1,0 +1,71 @@
+@startuml Music HMI module class diagram
+title Music HMI module class diagram
+
+interface ViewMusicServices  {
+    + openSearchTracks(Pane): void | Exception
+    + openCreateTrack(Window): void | Exception
+    + openEditTrack(Window, UUID): void | Exception
+    + openDeleteTrack(Window, UUID): void | Exception
+    + openMediaPlayer(Pane, UUID): void | Exception
+}
+
+class MainCallsMusic implements ViewMusicServices {
+    - musicCore: MusicCore
+}
+
+class MusicCore {
+    - musicCallsData: IMusicCallsData
+    - musicCallsCommunication: IMusicCallsCommunication
+    + getMainCallsMusic(): ViewMusicServices 
+    + setMusicCallsData(IMusicCallsData)
+    + setMusicCallsCommunication(IMusicCallsCommunication)
+}
+
+class SearchController {
+    - musicCore: MusicCore
+    - searchResult: List<TrackLite>
+    - filterByTitle(String)
+    - filterByArtist(String)
+    - filterByAlbum(String)
+}
+
+class SearchView {
+
+}
+
+class MediaPlayerController {
+    - musicCore: MusicCore
+    - mediaPlayer: MediaPlayer
+    - play()
+    - pause()
+    - download()
+    - closeMediaPlayer()
+}
+
+class MediaPlayerView {
+
+}
+
+class TrackController {
+    - musicCore: MusicCore
+    - track: Track
+    - closeCreatePopup()
+    - closeEditPopup()
+    - closeDeletePopup()
+}
+
+class TrackView {
+
+}
+
+MusicCore *-- "1" MainCallsMusic
+
+MusicCore *-- "0..1" SearchController
+MusicCore *-- "0..1" MediaPlayerController
+MusicCore *-- "0..1" TrackController
+
+SearchController *-- SearchView
+MediaPlayerController *-- MediaPlayerView
+TrackController *-- TrackView
+
+@enduml

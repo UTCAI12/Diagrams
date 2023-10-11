@@ -1,0 +1,87 @@
+@startuml Main HMI module class diagram
+title Main HMI module class diagram
+    interface ViewMainServices  {
+    + setCommunication(Communication) ⇒ void
+    + setData(Data) ⇒ void
+    + setHMIMain(HMIMain) ⇒ void
+    }
+
+    class ViewMainServicesImpl implements ViewMainServices {
+    }
+
+    class IHMMainCore {
+        DataUserServices dataUserServices
+        DataTrackServices dataTrackServices
+        DataRatingServices dataRatingServices
+        DataCommentServices dataCommentServices
+        ComMainServices comMainServices
+        ComMusicServices comMusicServices
+        MainController mainController
+
+        void DataUserServices(DataUserServices dataUserServices)
+        void DataTrackServices(DataTrackServices dataTrackServices)
+        void DataRatingServices(DataRatingServices dataRatingServices)
+        void DataCommentServices(DataCommentServices dataCommentServices)
+        void ComMainServices(ComMainServices comMainServices)
+        void ComMusicServices(ComMusicServices comMusicServices)
+    }
+
+
+    class ProfileController {
+        MainController mainController
+    }
+
+    class LoginController {
+        MainController mainController
+    }
+
+    class ImportProfileController {
+        MainController mainController
+    }
+
+    class MusicController {
+        MainController mainController
+    }
+
+    class UserConnectedController {
+        MainController mainController
+    }
+
+
+    class ViewProfile
+    class ViewLogin
+    class ViewImportProfile
+    class ViewMusic
+    class ViewUserConnected
+    class ViewMain
+
+
+    class MainController {
+        IHMMainCore ihmMainCore
+        ProfileController profileController
+        LoginController loginController
+        ImportProfileController importProfileController
+        MusicController musicController
+        UserConnectedController userConnectedController
+
+        IHMMainCore GetIhmMainCore()
+    }
+
+    ViewProfile --* ProfileController
+    ViewLogin --* LoginController
+    ViewImportProfile --* ImportProfileController
+    ViewMusic --* MusicController
+    ViewUserConnected --* UserConnectedController
+    ViewMain --* MainController
+
+
+    MainController --* IHMMainCore
+
+    ProfileController --* MainController
+    LoginController --* MainController
+    ImportProfileController --* MainController
+    MusicController --* MainController
+    UserConnectedController --* MainController
+    ViewMainServicesImpl --* MainController
+
+@enduml

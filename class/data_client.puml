@@ -1,0 +1,85 @@
+@startuml Data client class diagram
+title Data client class diagram
+
+    interface DataUserServices {
+        importProfile(filePath: str): User | Exception
+        createProfile(newClient: User): void | Exception
+        checkCredentials(user: str, pw:str): boolean | Exception
+        exportProfile(User, filePath: str): void | Exception
+        addUser(UserLite): void | Exception
+        deleteUser(UserLite): void | Exception
+        updateUser(User): void | Exception
+        deleteAllUsers(): void
+    }
+
+    interface DataTrackServices {
+        saveTrack(Track): void | Exception
+        updateTrack(Track): void | Exception
+        getTrack(UUID): Track | Exception
+        addTrackToLibrary(UUID): void
+        removeAllTracks(): void | Exception
+    }
+
+    interface DataRatingServices {
+        addRating(UUID, Rating): void | Exception
+    }
+
+    interface DataCommentServices {
+        addComment(UUID, Comment): void | Exception
+    }
+
+    class DataUserServicesImpl implements DataUserServices {
+
+    }
+
+    class DataTrackServicesImpl implements DataTrackServices {
+
+    }
+
+    class DataRatingServicesImpl implements DataRatingServices {
+
+    }
+
+    class DataCommentServicesImpl implements DataCommentServices {
+
+    }
+
+
+    class ClientController {
+        dataRepository : DataRepository
+        dataUserServices : DataUserServices
+        dataTrackServices : DataTrackServices
+        dataRatingServices : DataRatingServices
+        dataCommentServices : DataCommentServices
+    }
+
+    class DataRepository {
+        connectedUsers : Map<UserLite, List<TrackLite>>
+        tracks : List<TrackLite>
+        user : User
+        downloadedTracks : List<Track>
+    }
+
+    DataRepository --o ClientController
+    DataUserServicesImpl --o ClientController
+    DataTrackServicesImpl --o ClientController
+    DataRatingServicesImpl --o ClientController
+    DataCommentServicesImpl --o ClientController
+
+    interface EVENTS {
+        NEW_USER(User)
+        UPDATE_USER(User)
+        DELETE_USER(UserLite)
+        TRACK_READY_DOWNLOAD(Track)
+        UPDATE_TRACK(Track)
+        NEW_TRACK(TrackLite)
+        DELETE_TRACK(TrackLite)
+        DOWNLOADED_TRACK(Track)
+        TRACK_READY_PLAY(Track)
+        NEW_RATING(Rating)
+        REMOVE_ALL()
+        NEW_COMMENT(Comment)
+    }
+
+
+@enduml 

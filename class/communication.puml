@@ -1,0 +1,75 @@
+@startuml Communication module class diagram
+title Communication module class diagram
+
+package server {
+    class ServerCommunicationController {
+        - Model model
+        + void onMessage(SocketMessage, ServerSocketManager)
+    }
+
+    class ServerSocketManager {
+        - Socket socket
+        - ObjectInputStream input
+        - ObjectOutputStream output
+
+        + void send(SocketMessage)
+    }
+
+    class ServerRequestHandler {
+        - void sendAllExclude(SocketMessage, UUID)
+
+        ~ void userConnect(SocketMessage, UserLite, ServerSocketManager)
+        ~ void userDisconnect(SocketMessage, UserLite, ServerSocketManager)
+        ~ void userEdit(SocketMessage, UserLite, ServerSocketManager)
+        ~ void publishTrack(SocketMessage, TrackLite, ServerSocketManager)
+        ~ void ...()
+    }
+
+    ServerCommunicationController "1" -- "0..*" ServerSocketManager
+    ServerCommunicationController "-serverRequestHandler" o-- "    1" ServerRequestHandler
+
+}
+
+package client {
+    class ClientCommunicationController implements ComMusicServices, ComMainServices  {
+        - Model model
+
+        ~ void connect(UserLite)
+        ~ void onMessage(SocketMessage)
+    } 
+
+    class ClientRequestHandler {
+        ~ void userConnect(SocketMessage)
+        ~ void userDisconnect(SocketMessage)
+        ~ void userEdit(SocketMessage)
+        ~ void publishTrack(SocketMessage)
+        ~ void ...()
+    }
+
+    interface ComMainServices  {
+        + connect(UserLite, List<Track>) : Void | NetworkException
+        + editUser(UserLite) : Void | Exception
+        + disconnect() : Void | NetworkException
+    }
+
+    interface ComMusicServices {
+        + downloadTrack(UUID) : void | Exception
+        + updateTrack(TrackLite) : void | Exception
+        + publishTrack(TrackLite) : void | Exception
+        + unpublishTrack(TrackLite) : void | Exception
+        + addRating(UUID, Rating) : void | Exception
+        + addComment(UUID, Comment) : void | Exception
+    }
+
+    class ClientSocketManager {
+        - Socket socket
+        - ObjectInputStream input
+        - ObjectOutputStream output
+
+        ~ void send(SocketMessage)
+    }
+
+    ClientSocketManager "1" -up- "1" ClientCommunicationController
+    ClientCommunicationController "-clientRequestHandler" o-- "    1" ClientRequestHandler
+}
+@enduml
