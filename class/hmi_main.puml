@@ -1,5 +1,13 @@
 @startuml Main HMI module class diagram
 title Main HMI module class diagram
+    interface ViewMainServices  {
+    + setCommunication(Communication) ⇒ void
+    + setData(Data) ⇒ void
+    + setHMIMain(HMIMain) ⇒ void
+    }
+
+    class ViewMainServicesImpl implements ViewMainServices {
+    }
 
     class IHMMainCore {
         DataUserServices dataUserServices
@@ -74,5 +82,6 @@ title Main HMI module class diagram
     ImportProfileController --* MainController
     MusicController --* MainController
     UserConnectedController --* MainController
+    ViewMainServicesImpl --* MainController
 
 @enduml
