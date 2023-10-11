@@ -1,0 +1,63 @@
+@startuml Data diagram
+title Data diagram
+
+    class User {
+        id: Uid
+        username: String
+        trackList : ArrayList<Track>
+        email : String
+        password : String
+        birthdate : Date
+        avatar : ByteArray
+    }
+
+    class UserLite {
+        id: Uid
+        username: String
+        trackList : ArrayList<TrackLite>
+    }
+
+    class Track{
+        id : Uid
+        userId : Uid
+        title : String
+        author : String
+        tags : ArrayList<String>
+        rating : ArrayList<Note>
+        comments : ArrayList<Commentaire>
+        audio :
+    }
+
+    class TrackLite{
+        id : Uid
+        userId : Uid
+        title : String
+        author : String
+        tags : ArrayList<String>
+    }
+
+
+    class Comment {
+        id : Uid
+        user: UserLite
+        username : String
+        date : Datetime
+        text : String
+    }
+
+    class Rating {
+        id : Uid
+        user : UserLite
+        username : String
+        date : Datetime
+        val : Short
+    }
+
+    User -- Track
+    Comment -- Track
+    Rating --* Track
+    UserLite o-- Rating
+    UserLite o-- Comment
+    UserLite --o TrackLite
+
+@enduml 

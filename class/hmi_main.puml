@@ -1,0 +1,72 @@
+@startuml Main HMI module class diagram
+title Main HMI module class diagram
+
+    class IHMMainCore {
+        MainCallMusicInterface myInterfaceFromMusic
+        MainCallDataInterface myInterfaceFromData
+        MainCallComInterface myInterfaceFromCom
+        MainController mainController
+
+        void setInterfaceFromMusic(MainCallMusicInterface myInterfaceFromMusic)
+        void setInterfaceFromCom(MainCallComInterface myInterfaceFromCom)
+        void setInterfaceFromData(MainCallDataInterface myInterfaceFromData)
+    }
+
+
+    class ProfileController {
+        MainController mainController
+    }
+
+    class LoginController {
+        MainController mainController
+    }
+
+    class ImportProfileController {
+        MainController mainController
+    }
+
+    class MusicController {
+        MainController mainController
+    }
+
+    class UserConnectedController {
+        MainController mainController
+    }
+
+
+    class ViewProfile
+    class ViewLogin
+    class ViewImportProfile
+    class ViewMusic
+    class ViewUserConnected
+    class ViewMain
+
+
+    class MainController {
+        IHMMainCore ihmMainCore
+        ProfileController profileController
+        LoginController loginController
+        ImportProfileController importProfileController
+        MusicController musicController
+        UserConnectedController userConnectedController
+
+        IHMMainCore GetIhmMainCore()
+    }
+
+    ViewProfile --* ProfileController
+    ViewLogin --* LoginController
+    ViewImportProfile --* ImportProfileController
+    ViewMusic --* MusicController
+    ViewUserConnected --* UserConnectedController
+    ViewMain --* MainController
+
+
+    MainController --* IHMMainCore
+
+    ProfileController --* MainController
+    LoginController --* MainController
+    ImportProfileController --* MainController
+    MusicController --* MainController
+    UserConnectedController --* MainController
+
+@enduml

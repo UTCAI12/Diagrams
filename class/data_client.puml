@@ -1,0 +1,84 @@
+@startuml Data client class diagram
+title Data client class diagram
+
+interface ComCallsData{
+    addUser(UserLite): void
+    deleteUser(UserLite): void
+    updateTrack(Track)
+    getTrack(UUID): Track
+    updateTrack(TrackLite): void
+    publishTrack(TrackLite):void
+    unpublishTrack(TrackLite): void
+    addRating(UUID, Rating): void
+    addComment(UUID, Comment): NEW_COMMENT(Comment)
+    removeAll(): void
+}
+interface ihmMainCallsData{
+    importProfile(filePath: str): bool
+    createProfile(newClient: Client): bool
+    checkCredentials(user: str, pw:str): bool
+    exportProfile(filePath: str): void
+    editUser(User): UPDATE_USER(User)
+    deleteAll(): void
+
+}
+interface ihmMusicCallsData{
+    save(Track): void
+    addTrackToLibrary(UUID): void
+    saveTrack(Track): UPDATE_TRACK(Track)
+    downloadTrack(UUID): void
+    getPlayedTrack(): Track
+    addRating(UUID,Rating): NEW_RATING(Rating)
+    addComment(UUID, Comment): NEW_COMMENT(Comment)
+}
+
+class ComCallsDataImpl implements ComCallsData {
+
+}
+class ihmMainCallsDataImpl implements ihmMainCallsData {
+
+}
+
+class ihmMusicCallsDataImpl implements ihmMusicCallsData {
+
+}
+
+class ClientController{
+  
+dataRepository : DataRepository
+comCallsData : ComCallsDataImpl
+ihmMainCallsData : ihmMainCallsDataImpl
+ihmMusicCallsData : ihmMusicCallsDataImpl
+}
+
+class DataRepository {
+  
+connectedUsers : Map<UserLite, List<TrackLite>>
+tracks : List<TrackLite>
+user : User
+downloadedTracks : List<Track>
+}
+
+ComCallsDataImpl --o ClientController
+DataRepository --o ClientController
+ihmMainCallsDataImpl --o ClientController
+ihmMusicCallsDataImpl --o ClientController
+
+
+interface EVENTS {
+    NEW_USER(User)
+    UPDATE_USER(User)
+    DELETE_USER(UserLite)
+    TRACK_READY_DOWNLOAD(Track)
+    UPDATE_TRACK(Track)
+    NEW_TRACK(TrackLite)
+    DELETE_TRACK(TrackLite)
+    DOWNLOADED_TRACK(Track)
+    TRACK_READY_PLAY(Track)
+    NEW_RATING(Rating)
+    REMOVE_ALL()
+    NEW_COMMENT(Comment)
+}
+
+
+@enduml 
