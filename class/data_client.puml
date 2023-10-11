@@ -60,11 +60,11 @@ title Data client class diagram
         downloadedTracks : List<Track>
     }
 
-    DataRepository --o ClientController
-    DataUserServicesImpl --o ClientController
-    DataTrackServicesImpl --o ClientController
-    DataRatingServicesImpl --o ClientController
-    DataCommentServicesImpl --o ClientController
+    DataRepository --* ClientController
+    DataUserServicesImpl --* ClientController
+    DataTrackServicesImpl --* ClientController
+    DataRatingServicesImpl --* ClientController
+    DataCommentServicesImpl --* ClientController
 
     interface EVENTS {
         NEW_USER(User)
