@@ -2,14 +2,20 @@
 title Main HMI module class diagram
 
     class IHMMainCore {
-        MainCallMusicInterface myInterfaceFromMusic
-        MainCallDataInterface myInterfaceFromData
-        MainCallComInterface myInterfaceFromCom
+        DataUserServices dataUserServices
+        DataTrackServices dataTrackServices
+        DataRatingServices dataRatingServices
+        DataCommentServices dataCommentServices
+        ComMainServices comMainServices
+        ComMusicServices comMusicServices
         MainController mainController
 
-        void setInterfaceFromMusic(MainCallMusicInterface myInterfaceFromMusic)
-        void setInterfaceFromCom(MainCallComInterface myInterfaceFromCom)
-        void setInterfaceFromData(MainCallDataInterface myInterfaceFromData)
+        void DataUserServices(DataUserServices dataUserServices)
+        void DataTrackServices(DataTrackServices dataTrackServices)
+        void DataRatingServices(DataRatingServices dataRatingServices)
+        void DataCommentServices(DataCommentServices dataCommentServices)
+        void ComMainServices(ComMainServices comMainServices)
+        void ComMusicServices(ComMusicServices comMusicServices)
     }
 
 
