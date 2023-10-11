@@ -1,12 +1,6 @@
 @startuml Main HMI module class diagram
 title Main HMI module class diagram
 
-    interface ViewMusicServices  {
-    + setCommunication(Communication): void
-    + setData(Data): void
-    + setHMIMain(HMIMain): void
-    }
-
     class IHMMainCore {
         MainCallMusicInterface myInterfaceFromMusic
         MainCallDataInterface myInterfaceFromData
