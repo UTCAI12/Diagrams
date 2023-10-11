@@ -17,7 +17,7 @@ opt Create new profile
         deactivate hmi 
     else Profile file doesn't exist
         user ->> hmi++: Click on "Create profile"
-        hmi -> data++: createProfile(newClient: Client)
+        hmi -> data++: createProfile(newUser: User)
         return status: bool
         deactivate hmi
     end
