@@ -77,8 +77,8 @@ package client {
 
     ClientSocketManager "1" -up- "1" ClientCommunicationController
     ClientCommunicationController "-clientRequestHandler" o-- "1" ClientRequestHandler
-    ComMainServicesImpl "1" --o ClientCommunicationController
-    ComMusicServicesImpl "1" --o ClientCommunicationController
+    ComMainServicesImpl "1" --*  ClientCommunicationController
+    ComMusicServicesImpl "1" --* ClientCommunicationController
     
 }
 @enduml

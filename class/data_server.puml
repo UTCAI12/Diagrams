@@ -34,8 +34,8 @@ title Data server class diagram
         tracks : List<TrackLite>
     }
 
-    DataRepository --o ServerController
-    DataUserServicesImpl --o ServerController
-    DataTrackServicesImpl --o ServerController
+    DataRepository --* ServerController
+    DataUserServicesImpl --* ServerController
+    DataTrackServicesImpl --* ServerController
     
 @enduml
