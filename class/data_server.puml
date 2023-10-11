@@ -1,25 +1,32 @@
 @startuml Data server class diagram
 title Data server class diagram
 
-    interface ComCallsData{
-        new()  
-        addUser(UserLite) : void
-        updateUser(UserLite) : void
-        deleteUser(UserLite) : void
-        getUser(uuid) : UserLite
-        updateTrack(TrackLite) : void
-        publishTrack(TrackLite) : void
-        unpublishTrack(TrackLite) : void
-        getTrack(uuid) : TrackLite
+
+    interface DataUserServices {
+        getUser(UUID) : UserLite | Exception
+        addUser(UserLite) : void | Exception
+        deleteUser(UserLite) : void | Exception
+        updateUser(UserLite) : void | Exception
     }
 
-    class ComCallsDataImpl implements ComCallsData {
+    interface DataTrackServices {
+        updateTrack(TrackLite) : void | Exception
+        getTrack(UUID) : TrackLite | Exception
+        removeAllTracks(UserUUID) : void | Exception
+    }
+
+    class DataUserServicesImpl implements DataUserServices {
+
+    }
+
+    class DataTrackServicesImpl implements DataTrackServices {
 
     }
 
     class ServerController{
         dataRepository : DataRepository
-        comCallsData : ComCallsDataImpl
+        dataUserServicesImpl : DataUserServicesImpl
+        dataTrackServicesImpl : DataTrackServicesImpl
     }
 
     class DataRepository {
@@ -27,6 +34,8 @@ title Data server class diagram
         tracks : List<TrackLite>
     }
 
-    ComCallsDataImpl --o ServerController
     DataRepository --o ServerController
+    DataUserServicesImpl --o ServerController
+    DataTrackServicesImpl --o ServerController
+    
 @enduml
