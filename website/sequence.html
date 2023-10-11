@@ -27,7 +27,7 @@
             <h1><a href="./index.html">Conception AI12 - A23</a></h1>
             <h2>Sequence diagrams</h2>
             <p><a href="./images/sequence/">Direct link to images</a></p>
-            <div id="sequenceDiagramsContainer"></div>
+            <div id="diagramsContainer"></div>
         </div>
     </body>
     <script>
@@ -47,6 +47,7 @@
             "1.4 User export his profile to a file (client side).png",
             "1.6 User edits his profile (client side).png",
             "1.6 User edits his profile (server side).png",
+            "1.6 User edits his profile (Server).png",
             "1.7 User disconnects (client side).png",
             "1.7 User disconnects (connected clients side).png",
             "1.7 User disconnects (server side).png",
@@ -61,46 +62,18 @@
             "3.1 User select a track to start listening (owner client side).png",
             "3.1 User select a track to start listening (server side).png",
             "3.2 User pause a music (user side).png",
-            "4.1 User add a rating to a music (user side).png",
             "4.1 User add a rating to a music (connected clients side).png",
             "4.1 User add a rating to a music (server side).png",
-            "4.2 User add a comment to a music (user side).png",
+            "4.1 User add a rating to a music (user side).png",
             "4.2 User add a comment to a music (connected clients side).png",
             "4.2 User add a comment to a music (server side).png",
+            "4.2 User add a comment to a music (user side).png",
             "5.1 Server is started (server side).png",
             "5.2 Server is stopped (connected clients side).png",
             "5.2 Server is stopped (server side).png",
         ];
 
-        const sequenceDiagramsContainer = document.getElementById(
-            "sequenceDiagramsContainer"
-        );
-
-        for (let i = 0; i < categories.length; i++) {
-            const category = categories[i];
-            sequenceDiagramsContainer.innerHTML += `<h3>${category}</h3>`;
-            sequenceDiagramsContainer.innerHTML += `<div class="imagesContainer"></div>`;
-            const imagesContainer = sequenceDiagramsContainer.lastChild;
-
-            for (let j = 0; j < imagesNames.length; j++) {
-                const image = imagesNames[j];
-                if (image.startsWith(category.split(".")[0])) {
-                    imagesContainer.innerHTML += `
-                    <div class="imageCard">
-                        <img class="clickable" src="./images/sequence/${image}" />
-                        <div class="imageInfo">${image.split(".png")[0]}</div>
-                    </div>
-                    `;
-                }
-            }
-        }
-
-        const images = document.getElementsByClassName("clickable");
-        for (let i = 0; i < images.length; i++) {
-            const image = images[i];
-            image.addEventListener("click", () => {
-                image.classList.toggle("fullScreen");
-            });
-        }
+        const folder = "sequence";
     </script>
+    <script src="./insert_images.js"></script>
 </html>
