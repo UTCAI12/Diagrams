@@ -8,10 +8,10 @@ box "Server App" #LightGreen
 end box
 actor "Connected Clients" as connected
 
-client->>com++: USER_CONNECT (User)
-com->data++: addUser (UserLite)
+client->>com++: USER_CONNECT (HashMap<UserLite, List<TrackLite>>)
+com->data++: addUser (UserLite, List<TrackLite>)
 return void | Exception
-com->>connected: USER_CONNECT (User)
-com->>client: USER_CONNECTED (List<UserLite>)
+com->>connected: USER_CONNECT (HashMap<UserLite, List<TrackLite>>)
+com->>client: USER_CONNECTED (HashMap<UserLite, List<TrackLite>>)
 
 @enduml

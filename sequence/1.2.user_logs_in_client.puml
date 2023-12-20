@@ -30,15 +30,15 @@ hmi -> data++: checkCredentials(user: str, pw: str)
 return valid : boolean
 
 opt credentials are correct
-    hmi -> com++ : connect(User, List<Track>)
-    com->>server: USER_CONNECT (User)
+    hmi -> com++ : connect(UserLite, List<TrackLite>)
+    com->>server: USER_CONNECT (UserLite, List<TrackLite>)
     return void | NetworkException
 
     deactivate hmi
 
-    server ->> com++: USER_CONNECTED (List<UserLite>)
+    server ->> com++: USER_CONNECTED (HashMap<UserLite, List<TrackLite>>)
     deactivate server
-    com->data++: setConnectedUsers(List<UserLite>)
+    com->data++: setConnectedUsers(HashMap<UserLite, List<TrackLite>>)
     data->>hmi : NEW_USERS()
     return void
     deactivate com

@@ -8,9 +8,10 @@ box "Client application" #LightYellow
     participant "HMIMain" as hmi
 end box
 
-server->>com++: USER_CONNECT (List<UserLite>)
-com->data++: addUser(UserLite)
-data->>hmi: NEW_USER (User)
+server->>com++: USER_CONNECT (HashMap<UserLite, List<TrackLite>>)
+com->data++: addUser(UserLite, List<TrackLite>)
+data->>hmi: NEW_USER (UserLite)
+data->>hmi: NEW_TRACKS (List<TrackLite>)
 return void | Exception
 
 @enduml

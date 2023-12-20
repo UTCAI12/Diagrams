@@ -4,10 +4,10 @@
 
 ### Users
 
--   USER_CONNECT (User) : Message send by the user who wants to connect to the server
--   USER_CONNECTED (List\<User>) : Message send by the server to the new connected user (in response to USER_CONNECT)
--   USER_DISCONNECT (User) : Message send by the user who wants to disconnect from the server
--   USER_UPDATE (User) : Message send by the user who wants to update his profile
+-   USER_CONNECT (UserLite, List<TrackLite>) : Message send by the user who wants to connect to the server
+-   USER_CONNECTED (HashMap<UserLite, List<TrackLite>>) : Message send by the server to the new connected user (in response to USER_CONNECT)
+-   USER_DISCONNECT (UserLite) : Message send by the user who wants to disconnect from the server
+-   USER_UPDATE (UserLite) : Message send by the user who wants to update his profile
 -   GET_USER (UUID) : Message send by the user who wants to get the full data model of a user
 
 ### Tracks
