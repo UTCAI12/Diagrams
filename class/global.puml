@@ -1,0 +1,77 @@
+@startuml
+class GlobalController {
+ + getDataServicesProvider() : DataServicesProvider 
+ + getComServicesProvider() : ComServicesProvider
+ + getViewMusicServicesProvider() : ViewMusicServicesProvider
+ + getViewMainServicesProvider() : ViewMainServicesProvider
+}
+
+class DataServicesProvider {
+ + getDataUserServices() : DataUserServices 
+ + getDataTrackServices() : DataTrackServices
+ + getDataRatingServices() : DataRatingServices
+ + getDataCommentServices() : DataCommentServices
+}
+interface DataUserServices {
+ + importProfile(String) : User
+ + createProfile(User)
+}
+interface DataTrackServices {
+ + saveTrack(Track)
+ + addTrackToLibrary(UUID)
+}
+interface DataRatingServices {
+ + addRating(UUID, Rating)
+}
+interface DataCommentServices {
+ + addComment(UUID, Comment)
+}
+
+class ComServicesProvider {
+ + getComMusicServices() : ComMusicServices
+ + getComMainServices() : ComMainServices
+}
+
+interface ComMusicServices {
+ + downloadTrack(UUID)
+ + publishTrack(TrackLite)
+}
+interface ComMainServices {
+ + connect(UserLite, List<TrackLite>)
+ + disconnect()
+}
+
+class ViewMainServicesProvider {
+ + getViewMainServices() : ViewMainServices 
+}
+interface ViewMainServices {
+ + openLoginView()
+ + openMainView()
+}
+
+class ViewMusicServicesProvider {
+ + getViewMusicServices() : ViewMusicServices 
+}
+interface ViewMusicServices {
+ + openEditTrack(UUID)
+ + openMediaPlayer(Scene, UUID)
+}
+
+GlobalController  *-- "1"  DataServicesProvider 
+GlobalController  *-- "1"  ComServicesProvider 
+GlobalController  *-- "1"  ViewMainServicesProvider
+GlobalController  *-- "1"  ViewMusicServicesProvider 
+
+DataServicesProvider *-- "1"  DataUserServices 
+DataServicesProvider *-- "1"  DataTrackServices
+DataServicesProvider *-- "1"  DataRatingServices
+DataServicesProvider *-- "1"  DataCommentServices
+
+ComServicesProvider *-- "1"  ComMusicServices
+ComServicesProvider *-- "1"  ComMainServices
+
+ViewMainServicesProvider *-- "1" ViewMainServices 
+ViewMusicServicesProvider *-- "1" ViewMusicServices 
+
+
+@enduml
